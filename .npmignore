@@ -1,0 +1,28 @@
+# FOLDERS ###############################
+/.github
+/.husky
+/examples
+/node_modules
+/offline
+/src
+/tests
+/package
+
+# FILES #################################
+*.tgz
+package-lock.json
+yarn-lock.json
+pnpm-lock.yaml
+
+.npmrc
+.commitlintrc
+.czrc
+.editorconfig
+.eslintignore
+.eslintrc
+.gitignore
+.npmignore
+.prettierignore
+.prettierrc
+LICENSE
+tsconfig.json

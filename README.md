@@ -94,7 +94,7 @@ $ npm run dev
 To use it from the registry, first install the npm package:
 
 ```bash
-# Clone this repository
+# Install the package
 npm install ticktick-api-lvt
 ```
 
@@ -142,6 +142,8 @@ async function main() {
 
 main();
 ```
+
+To see further examples, check out the examples folder.
 
 ---
 

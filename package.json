@@ -1,6 +1,6 @@
 {
   "name": "ticktick-api-lvt",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This is a ticktick api wrapper package to be used in node based projects.",
   "license": "MIT",
   "main": "dist/index.js",
@@ -9,6 +9,13 @@
     "type": "git",
     "url": "git+https://github.com/lucasvtiradentes/ticktick-api-lvt.git"
   },
+  "keywords": [
+    "ticktick",
+    "ticktick-api",
+    "api-wrapper",
+    "api",
+    "typescript"
+  ],
   "author": {
     "name": "Lucas Vieira",
     "email": "lucasvtiradentes@gmail.com",

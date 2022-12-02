@@ -1,6 +1,6 @@
 {
   "name": "ticktick-api-lvt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This is a ticktick api wrapper package to be used in node based projects.",
   "license": "MIT",
   "main": "dist/index.js",
@@ -15,9 +15,9 @@
     "url": "https://www.linkedin.com/in/lucasvtiradentes"
   },
   "bugs": {
-    "url": "https://github.com/lucasvtiradentes/lvt-tick-tick-api/issues"
+    "url": "https://github.com/lucasvtiradentes/ticktick-api-lvt/issues"
   },
-  "homepage": "https://github.com/lucasvtiradentes/lvt-tick-tick-api",
+  "homepage": "https://github.com/lucasvtiradentes/ticktick-api-lvt",
   "scripts": {
     "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn --transpile-only ./src/index.ts",
@@ -34,10 +34,12 @@
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0",
+    "@types/dotenv": "^8.2.0",
     "@types/node": "^18.11.9",
     "@types/request": "^2.48.8",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
+    "dotenv": "^16.0.3",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "prettier": "^2.8.0",

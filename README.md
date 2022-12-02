@@ -1,14 +1,14 @@
 <h1 align="center">
-  tick tick api wrapper
+  ticktick api lvt
 </h1>
 
 <p align="center">
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/lucasvtiradentes/tick-tick-api.svg">
-  <a href="https://github.com/lucasvtiradentes/tick-tick-api/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/lucasvtiradentes/tick-tick-api.svg">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/lucasvtiradentes/ticktick-api-lvt.svg">
+  <a href="https://github.com/lucasvtiradentes/ticktick-api-lvt/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/lucasvtiradentes/ticktick-api-lvt.svg">
   </a>
-  <a href="https://github.com/lucasvtiradentes/tick-tick-api/issues">
-    <img alt="Repository issues" src="https://img.shields.io/github/issues/lucasvtiradentes/tick-tick-api.svg">
+  <a href="https://github.com/lucasvtiradentes/ticktick-api-lvt/issues">
+    <img alt="Repository issues" src="https://img.shields.io/github/issues/lucasvtiradentes/ticktick-api-lvt.svg">
   </a>
 </p>
 
@@ -23,15 +23,17 @@
 
 ## :information_source: Description
 
-This is tick-tick api wrapper to be used in javascript and typescript, since there is no official package.
+This is a ticktick api wrapper to be used in nodejs based projects, since there is no official package.
 
 ## :information_source: Features
 
 - [x] Login into ticktick
 - [x] Get user tasks
 - [x] Get user projects
+- [x] Get user project groups
 - [x] Get user tags
 - [x] Get user filters
+- [x] Get user habits
 - [x] Add task
 
 ## :information_source: Technologies
@@ -59,10 +61,11 @@ This project uses the following technologies:
     <tr>
       <td>dev tools</td>
       <td align="center">
+        <a target="_blank" href="https://editorconfig.org/"><img src="https://img.shields.io/badge/editorconfig-gray?style=for-the-badge&logo=editorconfig&logoColor=white"></a>
         <a target="_blank" href="https://eslint.org/"><img src="https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white"></a>
         <a target="_blank" href="https://prettier.io/"><img src="https://img.shields.io/badge/prettier-black?style=for-the-badge&logo=prettier&logoColor=white"></a>
-        <a target="_blank" href="https://github.com/typicode/husky"><img src="https://img.shields.io/badge/🐶husky-green?style=for-the-badge&logo=husky&logoColor=white"></a>
-        <a target="_blank" href="https://editorconfig.org/"><img src="https://img.shields.io/badge/editorconfig-gray?style=for-the-badge&logo=editorconfig&logoColor=white"></a>
+        <a target="_blank" href="https://github.com/conventional-changelog/commitlint"><img src="https://img.shields.io/badge/commitlint-red?style=for-the-badge&logo=commitlint&logoColor=white"></a>
+        <a target="_blank" href="https://github.com/commitizen/cz-cli"><img src="https://img.shields.io/badge/commitizen-pink?style=for-the-badge&logo=conventionalcommits&logoColor=white"></a>
       </td>
     </tr>
   </table>
@@ -74,10 +77,10 @@ To clone this repository and make changes in the source code, you'll need [Git](
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/lucasvtiradentes/lvt-tick-tick-api
+$ git clone https://github.com/lucasvtiradentes/ticktick-api-lvt
 
 # Go into the repository
-$ cd lvt-tick-tick-api
+$ cd ticktick-api-lvt
 
 # Install dependencies
 $ npm install
@@ -92,13 +95,13 @@ To use it from the registry, first install the npm package:
 
 ```bash
 # Clone this repository
-npm install lvt-tick-tick-api
+npm install ticktick-api-lvt
 ```
 
 And you can normally use it in your code as it follows:
 
 ```typescript
-import { Tick } from 'lvt-tick-tick-api';
+import { Tick } from 'ticktick-api-lvt';
 
 async function main() {
   const USERNAME = 'username';

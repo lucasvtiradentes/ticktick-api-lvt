@@ -1,4 +1,4 @@
-const { Tick } = require('lvt-tick-tick-api');
+const { Tick } = require('ticktick-api-lvt');
 
 async function main() {
   try {

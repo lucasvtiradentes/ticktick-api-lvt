@@ -1,4 +1,4 @@
-import { Tick } from 'lvt-tick-tick-api'
+import { Tick } from 'ticktick-api-lvt'
 
 async function main() {
   try {

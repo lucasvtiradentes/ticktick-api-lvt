@@ -10,6 +10,9 @@
   <a href="https://github.com/lucasvtiradentes/ticktick-api-lvt/issues">
     <img alt="Repository issues" src="https://img.shields.io/github/issues/lucasvtiradentes/ticktick-api-lvt.svg">
   </a>
+  <a href="https://www.npmjs.com/package/ticktick-api-lvt">
+    <img src="https://img.shields.io/npm/v/ticktick-api-lvt.svg?style=flat" alt="npm version">
+  </a>
 </p>
 
 <p align="center">

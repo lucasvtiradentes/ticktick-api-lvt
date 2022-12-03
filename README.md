@@ -28,13 +28,13 @@ This is a ticktick api wrapper to be used in nodejs based projects, since there 
 ## :information_source: Features
 
 - [x] Login into ticktick
+- [x] Add tasks
 - [x] Get user tasks
 - [x] Get user projects
 - [x] Get user project groups
 - [x] Get user tags
 - [x] Get user filters
 - [x] Get user habits
-- [x] Add task
 
 ## :information_source: Technologies
 
@@ -64,8 +64,10 @@ This project uses the following technologies:
         <a target="_blank" href="https://editorconfig.org/"><img src="https://img.shields.io/badge/editorconfig-gray?style=for-the-badge&logo=editorconfig&logoColor=white"></a>
         <a target="_blank" href="https://eslint.org/"><img src="https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white"></a>
         <a target="_blank" href="https://prettier.io/"><img src="https://img.shields.io/badge/prettier-black?style=for-the-badge&logo=prettier&logoColor=white"></a>
+        <br>
         <a target="_blank" href="https://github.com/conventional-changelog/commitlint"><img src="https://img.shields.io/badge/commitlint-red?style=for-the-badge&logo=commitlint&logoColor=white"></a>
         <a target="_blank" href="https://github.com/commitizen/cz-cli"><img src="https://img.shields.io/badge/commitizen-pink?style=for-the-badge&logo=conventionalcommits&logoColor=white"></a>
+        <a target="_blank" href="https://github.com/typicode/husky"><img src="https://img.shields.io/badge/🐶husky-yellow?style=for-the-badge&logo=husky&logoColor=white"></a>
       </td>
     </tr>
   </table>
@@ -88,6 +90,8 @@ $ npm install
 # Run the code in development mode
 $ npm run dev
 ```
+
+As this project uses `husky`, make sure to run the following command after initialize git in the folder: `npx husky install`. Only after this command husky will be able to check commit messages validation.
 
 ## :information_source: How to use it
 

@@ -3,15 +3,15 @@
 </h1>
 
 <p align="center">
+  <a href="https://www.npmjs.com/package/ticktick-api-lvt">
+    <img src="https://img.shields.io/npm/v/ticktick-api-lvt.svg?style=flat" alt="npm version">
+  </a>
   <img alt="Repository size" src="https://img.shields.io/github/repo-size/lucasvtiradentes/ticktick-api-lvt.svg">
   <a href="https://github.com/lucasvtiradentes/ticktick-api-lvt/commits/master">
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/lucasvtiradentes/ticktick-api-lvt.svg">
   </a>
   <a href="https://github.com/lucasvtiradentes/ticktick-api-lvt/issues">
     <img alt="Repository issues" src="https://img.shields.io/github/issues/lucasvtiradentes/ticktick-api-lvt.svg">
-  </a>
-  <a href="https://www.npmjs.com/package/ticktick-api-lvt">
-    <img src="https://img.shields.io/npm/v/ticktick-api-lvt.svg?style=flat" alt="npm version">
   </a>
 </p>
 
@@ -21,7 +21,9 @@
   &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#information_source-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#information_source-how-to-edit-it">How to edit it?</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#information_source-how-to-use-it">How to use it?</a>
+  <a href="#information_source-how-to-use-it">How to use it?</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#information_source-contributing">Contributing</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#information_source-license">License</a>
 </p>
 
 ## :information_source: Description
@@ -151,6 +153,20 @@ main();
 ```
 
 To see further examples, check out the examples folder.
+
+## :information_source: Contributing
+
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## :information_source: License
+
+Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 

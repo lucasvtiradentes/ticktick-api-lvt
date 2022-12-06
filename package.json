@@ -32,12 +32,12 @@
   },
   "scripts": {
     "start": "node dist/index.js",
-    "dev": "ts-node-dev --respawn --transpile-only ./src/index.ts",
+    "dev_example": "ts-node-dev --respawn --transpile-only ./examples/dev-example.ts",
+    "dev": "npm run dev_example",
     "build": "tsc",
     "check_package": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
     "prepub": "echo prepublish scripts && npm run build && npm run check_package",
     "commit": "cz",
-    "dev_example": "ts-node-dev --respawn --transpile-only ./examples/dev-example.ts",
     "semantic-release": "semantic-release"
   },
   "dependencies": {

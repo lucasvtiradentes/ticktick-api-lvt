@@ -28,9 +28,6 @@ export class Tick {
   };
 
   constructor({ username, password }: IoptionsProps) {
-    console.log(username);
-    console.log(password);
-
     this.request = request.defaults({ jar: true });
     this.username = username;
     this.password = password;
@@ -61,7 +58,10 @@ export class Tick {
 
       return new Promise((resolve) => {
         reqObj(options, (error: any, request: any, body: any) => {
-          if (body.username !== undefined) {
+          if (body.errorMessage) {
+            console.log(`login error: ${body.errorMessage}`);
+            resolve(false);
+          } else {
             this.getInboxProperties()
               .then((data) => {
                 resolve(true);
@@ -69,8 +69,6 @@ export class Tick {
               .catch((err) => {
                 resolve(false);
               });
-          } else {
-            resolve(false);
           }
         });
       });

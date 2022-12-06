@@ -1,10 +1,12 @@
 {
   "name": "ticktick-api-lvt",
   "version": "0.0.0-development",
-  "description": "This is a ticktick api wrapper package to be used in node based projects.",
+  "description": "📅 a ticktick api wrapper package to be used in node based projects.",
   "license": "MIT",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "author": {
+    "name": "Lucas Vieira",
+    "email": "lucasvtiradentes@gmail.com"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/lucasvtiradentes/ticktick-api-lvt.git"
@@ -16,28 +18,20 @@
     "api",
     "typescript"
   ],
-  "author": {
-    "name": "Lucas Vieira",
-    "email": "lucasvtiradentes@gmail.com",
-    "url": "https://www.linkedin.com/in/lucasvtiradentes"
-  },
   "bugs": {
     "url": "https://github.com/lucasvtiradentes/ticktick-api-lvt/issues"
   },
   "homepage": "https://github.com/lucasvtiradentes/ticktick-api-lvt",
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "start": "node dist/index.js",
-    "dev": "ts-node-dev --respawn --transpile-only ./src/index.ts",
+    "dev_example": "ts-node-dev --respawn --transpile-only ./examples/dev-example.ts",
+    "dev": "npm run dev_example",
     "build": "tsc",
     "check_package": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
     "prepub": "echo prepublish scripts && npm run build && npm run check_package",
     "commit": "cz",
-    "dev_example": "ts-node-dev --respawn --transpile-only ./examples/dev-example.ts",
     "semantic-release": "semantic-release"
   },
   "dependencies": {

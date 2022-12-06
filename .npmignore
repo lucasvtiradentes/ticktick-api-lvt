@@ -14,15 +14,18 @@ package-lock.json
 yarn-lock.json
 pnpm-lock.yaml
 
-.npmrc
 .commitlintrc
 .czrc
 .editorconfig
+.env
+.env.example
 .eslintignore
 .eslintrc
 .gitignore
 .npmignore
 .prettierignore
 .prettierrc
+.releaserc
 LICENSE
+CHANGELOG.md
 tsconfig.json

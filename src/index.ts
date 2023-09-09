@@ -47,7 +47,10 @@ export class Tick {
         url: url,
         headers: {
           'Content-Type': 'application/json',
-          Origin: 'https://ticktick.com'
+          Origin: 'https://ticktick.com',
+      		"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0",
+					"x-device": "{\"platform\":\"web\",\"os\":\"Windows 10\",\"device\":\"Firefox 117.0\",\"name\":\"\",\"version\":4576,\"id\":\"64f9effe6edff918986b5f71\",\"channel\":\"website\",\"campaign\":\"\",\"websocket\":\"\"}",
+			
         },
         json: {
           username: this.username,

@@ -37,4 +37,17 @@ export interface ITask {
   local?: boolean;
   remindTime?: any;
   tags?: any[];
+  childIds: string[];
+  parentId: string;
+  
+}
+
+export interface IUpdate
+{
+  "add": ITask[],
+  "addAttachments": [],
+  "delete": ITask[],
+  "deleteAttachments": [],
+  "update": ITask[],
+  "updateAttachments": []
 }

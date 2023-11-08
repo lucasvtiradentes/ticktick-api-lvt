@@ -1,6 +1,6 @@
 {
   "name": "ticktick-api-lvt",
-  "version": "0.0.0-development",
+  "version": "0.1.0-development",
   "description": "📅 a ticktick api wrapper package to be used in node based projects.",
   "license": "MIT",
   "author": {

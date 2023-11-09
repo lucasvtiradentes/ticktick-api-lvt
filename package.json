@@ -25,6 +25,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "prepare": "npm run build",
     "start": "node dist/index.js",
     "dev_example": "ts-node-dev --respawn --transpile-only ./examples/dev-example.ts",
     "dev": "npm run dev_example",

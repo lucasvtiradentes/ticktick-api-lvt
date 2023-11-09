@@ -428,7 +428,7 @@ export class Tick {
       dueDate: jsonOptions.dueDate ? jsonOptions.dueDate : null,
       timeZone: jsonOptions.timeZone ? jsonOptions.timeZone : 'America/New_York', // This needs to be updated to grab dynamically
       isAllDay: jsonOptions.isAllDay ? jsonOptions.isAllDay : null,
-      // reminder: jsonOptions.reminder ? jsonOptions.reminder : null,
+      reminder: jsonOptions.reminder ? jsonOptions.reminder : null,
       reminders: jsonOptions.reminders ? jsonOptions.reminders : [{ id: ObjectID(), trigger: 'TRIGGER:PT0S' }],
       repeatFlag: jsonOptions.repeatFlag ? jsonOptions.repeatFlag : null,
       priority: jsonOptions.priority ? jsonOptions.priority : 0,

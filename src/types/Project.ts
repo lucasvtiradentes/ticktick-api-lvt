@@ -1,6 +1,4 @@
-export { IProject }
-
-interface IProject {
+export interface IProject {
   id: string
   name: string
   isOwner: boolean
@@ -21,4 +19,11 @@ interface IProject {
   permission: any
   kind: string
   timeline: any
+}
+export interface ISections 
+{
+  id: number,
+  projectId: number,
+  name: string,
+  sortOrder: number,
 }

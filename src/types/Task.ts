@@ -9,7 +9,7 @@ export interface ITask {
   timeZone: string;
   isFloating?: boolean;
   isAllDay: boolean;
-  reminder: string;
+  reminder: string; // we only get a set
   reminders: any[];
   repeatFirstDate?: string;
   repeatFlag: string;
@@ -17,7 +17,7 @@ export interface ITask {
   completedTime?: string;
   completedUserId?: any;
   repeatTaskId?: string;
-
+  
   priority: number;
   status: number;
   items: any[];
@@ -31,10 +31,23 @@ export interface ITask {
   focusSummaries?: any[];
   columnId?: string;
   kind?: string;
-
+  
   assignee?: any;
   isDirty?: boolean;
   local?: boolean;
   remindTime?: any;
   tags?: any[];
+  childIds: string[];
+  parentId: string;
+  
+}
+
+export interface IUpdate
+{
+  "add": ITask[],
+  "addAttachments": [],
+  "delete": ITask[],
+  "deleteAttachments": [],
+  "update": ITask[],
+  "updateAttachments": []
 }

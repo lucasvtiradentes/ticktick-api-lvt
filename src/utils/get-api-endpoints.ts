@@ -9,7 +9,12 @@ const API_ENDPOINTS = {
   allHabitsEndPoint: 'habits',
   allTagsEndPoint: 'tags',
   allTasksEndPoint: 'batch/check/1',
-  addTaskEndPoint: '/task'
+  TaskEndPoint: 'task',
+  updateTaskEndPoint: 'batch/task',
+  //If this ever existed, it's gone now. use getSections. That's the only project detail anyway.
+  //getProject: 'project/',
+  getSections: 'column/project/',
+  getAllCompletedItems: "project/all/completedInAll/"
 };
 
 /*

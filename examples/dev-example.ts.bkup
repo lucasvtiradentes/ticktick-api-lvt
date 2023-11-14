@@ -12,40 +12,32 @@ export async function testTick() {
     // const envUSERNAME = process.env.TICK_USERNAME
     // const envPASSWORD = process.env.TICK_PASSWORD
     const envUSERNAME = "thesamim@yahoo.com"
-    const envPASSWORD = "Howdy0021!"
+    const envPASSWORD = "howdy002"
     if (!envUSERNAME || !envPASSWORD){
       throw new Error('parameters username/password were not set in .env file.');
     }
     
-    const projectID = "65159d5d8f08a002fd167ce8";
     const tickSession = new Tick({ username: envUSERNAME, password: envPASSWORD });
     const hasLoggedIn = await tickSession.login();
     if (!hasLoggedIn) {
       throw new Error('Coudnt login with this username/password.');
     }
     // let myTask: ITask = {
-    //   "projectId": projectID,
-    //   "title": "Trying too many things. #otherNewTest 10/21/2023 -- latest.",
-    //   "tags": ["NewTest"]
+    //   "projectId": "inbox121990985",
+    //   "title": "This is the one I want to add right now. ",
+    //   "tags": ["mod1"]
     // }
-    // let addResult = await tickSession.addTask(myTask);
-    // console.log("Add Result : ", addResult);
-
-    // let newTaskId = "6515b1642b3163961425bb73";
-    // let newTaskTitle = "";
-    // console.log("New Id: ", newTaskId, "New Title: ", newTaskTitle);
-    // let addedTask = await tickSession.getTask(newTaskId, projectID)
-    // console.log("getTask result: ", addedTask);
-
-    // let myTask: ITask = {
-    //   "projectId": projectID,
-    //   "title": addedTask.title + " just add something.",
-    //   // "tags": ["NewTest"],
-    //   "id": newTaskId,
-    //   "status": 3
+    // const addResult = await tickSession.addTask(myTask, false);
+    // console.log(addResult);
+    
+    // const userPreferences = await tickSession.getUserSettings()
+    // if (userPreferences !== undefined && userPreferences !== null) {
+    //   console.log("==== userPreferences")
+    //   console.log(Object.keys(userPreferences)) 
+    // } else {
+    //   console.log("==== No userPreferences")
     // }
-    // let addResult = await tickSession.updateTask(myTask);
-    // console.log("Update Result : ", addResult);
+    
     // const allAllTasks = await tickSession.getAllTasks();
     // if (allAllTasks !== undefined && allAllTasks !== null) {
     //   console.log("==== allAllTasks")
@@ -70,8 +62,6 @@ export async function testTick() {
           return -1;
         }
       }); 
-      // allAllTasks.forEach(task => console.log(task.title))
-
 
       console.log(allAllTasks.map((currentTask) => `${currentTask.title}, ${currentTask.sortOrder}`))
       printTasks(allAllTasks);
@@ -100,39 +90,86 @@ export async function testTick() {
       console.log("==== No allAllTasks")
     }
     
-    // const projects = await tickSession.getProjects();
-    // if (projects !== undefined && projects !== null) {
-    //   console.log("==== projects") 
-    //   // console.log(projects.map((item) => item.name));
-    //   console.log(`Got ${projects.length} projects.`)
-    //   projects.forEach(async project => {
-    //     console.log("Prj nm: ",project.name);
-    //     const sections = await tickSession.getProjectSections(project.id);
-    //     // console.log(`Project: ${project.name} -- ${sections}`);
-    //     if (sections !== undefined && sections !== null && sections.length > 0) {
-    //       sections.forEach(section => {
-    //         console.log(project.name + '--' + section.name);
-    //       })
-    //     } else {
-    //       console.log(project.name + '--' + 'no sections')
-    //     }
-    //   })
-
-    //   // projects.forEach(project => {
-    //   //   console.log(project.name);
-    //   //   const sections = await tickSession.getProjectSections(project.id);
-    //   //   if (sections !== undefined && sections !== null) {
-    //   //     console.log(sections);
-    //   //   });
-    //   // }
-
-    // } else {
-    //   console.log("==== No projects") 
+    // const tasks = await tickSession.getTasks();
+    // if (tasks !== undefined && tasks !== null) {
+    //   console.log("==== tasks")
+    //   console.log(tasks.map((item) => item.title));
+    //   console.log("==== items of tasks")
+    //   console.log(tasks.map((item) => item.items))
+    //   console.log("==== content of tasks")
+    //   console.log(tasks.map((item) => item.content))
+    // }else {
+    //   console.log("==== No tasks")
     // }
+    
+    // const filters = await tickSession.getFilters();
+    // if (filters !== undefined && filters !== null) {
+    //   console.log("==== filters")
+    //   console.log(filters.map((item) => item.name));
+    // }else {
+    //   console.log("==== No filters")
+    // }
+    
+    const projectGroups = await tickSession.getProjectGroups();
+    if (projectGroups !== undefined && projectGroups !== null) {
+      console.log("==== projectGroups")
+      console.log(projectGroups.map((item) => item.name));
+    }else {
+      console.log("==== No projectGroups")
+    }
+    
+        const projects = await tickSession.getProjects();
+        if (projects !== undefined && projects !== null) {
+          console.log("==== projects") 
+          // console.log(projects.map((item) => item.name));
+          projects.forEach(async project => {
+    //        console.log(project.name);
+            const singleProject = await tickSession.getProject(project.id);
+            console.log(singleProject);
+            const sections = await tickSession.getProjectSections(project.id);
+            // console.log(`Project: ${project.name} -- ${sections}`);
+            if (sections !== undefined && sections !== null && sections.length > 0) {
+              sections.forEach(section => {
+                console.log(project.name + '--' + section.name);
+              })
+            } else {
+              console.log(project.name + '--' + 'no sections')
+            }
+          })
+    
+          // projects.forEach(project => {
+          //   console.log(project.name);
+          //   const sections = await tickSession.getProjectSections(project.id);
+          //   if (sections !== undefined && sections !== null) {
+          //     console.log(sections);
+          //   });
+          // }
+    
+    
+    
+    
+        } else {
+          console.log("==== No projects")
+        }
+    
+    const habits = await tickSession.getHabits();
+    if (habits !== undefined && habits !== null) {
+      console.log("==== habits")
+      console.log(habits.map((item) => item.name));
+    }else {
+      console.log("==== No habits")
+    }
+    const tags = await tickSession.getTags();
+    if (tags !== undefined && tags !== null) {
+      console.log("==== tags")
+      console.log(tags);
+    }else {
+      console.log("==== No tags")
+    }
+    
   } catch (e: any) {
     console.log(e.message);
   }
-  console.log("\n\nDone")
 }
 
 function isAChild(idToCheck: string) {

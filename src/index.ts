@@ -14,11 +14,12 @@ import { IHabit } from './types/Habit';
 
 import { API_ENDPOINTS } from './utils/get-api-endpoints';
 
-const { ticktickApiBaseUrl: TICKTICK_API_URL, TaskEndPoint, updateTaskEndPoint, allTagsEndPoint, generalDetailsEndPoint, allHabitsEndPoint, allProjectsEndPoint, allTasksEndPoint, singnInEndPoint, userPreferencesEndPoint, getSections, getAllCompletedItems } = API_ENDPOINTS;
+const { ticktickApiBaseUrl, TaskEndPoint, updateTaskEndPoint, allTagsEndPoint, generalDetailsEndPoint, allHabitsEndPoint, allProjectsEndPoint, allTasksEndPoint, singnInEndPoint, userPreferencesEndPoint, getSections, getAllCompletedItems } = API_ENDPOINTS;
 
 interface IoptionsProps {
   username: string;
   password: string;
+  baseUrl?: string;
 }
 
 export class Tick {
@@ -29,8 +30,9 @@ export class Tick {
     id: string;
     sortOrder: number;
   };
-  
-  constructor({ username, password }: IoptionsProps) {
+  apiUrl: string;
+
+  constructor({ username, password, baseUrl }: IoptionsProps) {
     this.request = request.defaults({ jar: true });
     this.username = username;
     this.password = password;
@@ -38,22 +40,22 @@ export class Tick {
       id: '',
       sortOrder: 0
     };
+    this.apiUrl = baseUrl || ticktickApiBaseUrl;
   }
-  
+
   // USER ======================================================================
-  
+
   async login(): Promise<boolean> {
     try {
-      const url = `${TICKTICK_API_URL}/${singnInEndPoint}`;
+      const url = `${this.apiUrl}/${singnInEndPoint}`;
       const options = {
         method: 'POST',
         url: url,
         headers: {
           'Content-Type': 'application/json',
           Origin: 'https://ticktick.com',
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0",
-          "x-device": "{\"platform\":\"web\",\"os\":\"Windows 10\",\"device\":\"Firefox 117.0\",\"name\":\"\",\"version\":4576,\"id\":\"64f9effe6edff918986b5f71\",\"channel\":\"website\",\"campaign\":\"\",\"websocket\":\"\"}",
-          
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0',
+          'x-device': '{"platform":"web","os":"Windows 10","device":"Firefox 117.0","name":"","version":4576,"id":"64f9effe6edff918986b5f71","channel":"website","campaign":"","websocket":""}'
         },
         json: {
           username: this.username,
@@ -61,21 +63,21 @@ export class Tick {
         }
       };
       const reqObj = this.request;
-      
+
       return new Promise((resolve) => {
         reqObj(options, async (error: any, request: any, body: any) => {
           let gotInboxProperties = false;
           if (!body || body.errorMessage) {
-            console.error(`login error: ${body? body.errorMessage: 'Probably timeout.'}`);
+            console.error(`login error: ${body ? body.errorMessage : 'Probably timeout.'}`);
             resolve(false);
           } else {
             await this.getInboxProperties()
-            .then((data) => {
-              resolve(true);
-            })
-            .catch((err) => {
-              resolve(false);
-            });
+              .then((data) => {
+                resolve(true);
+              })
+              .catch((err) => {
+                resolve(false);
+              });
           }
         });
       });
@@ -83,30 +85,30 @@ export class Tick {
       return false;
     }
   }
-  
+
   async getUserSettings(): Promise<any[]> {
     return new Promise((resolve) => {
-      const url = `${TICKTICK_API_URL}/${userPreferencesEndPoint}`;
+      const url = `${this.apiUrl}/${userPreferencesEndPoint}`;
       this.request(url, (error: any, response: any, body: any) => {
         body = JSON.parse(body);
         resolve(body);
       });
     });
   }
-  
+
   private async getInboxProperties(): Promise<boolean> {
     return new Promise((resolve) => {
       try {
-        const url = `${TICKTICK_API_URL}/${generalDetailsEndPoint}`;
-        
+        const url = `${this.apiUrl}/${generalDetailsEndPoint}`;
+
         this.request(url, (error: any, response: any, body: any) => {
           if (error) {
             console.error(error);
-            resolve(false)
+            resolve(false);
           }
           if (body) {
             body = JSON.parse(body);
-            
+
             this.inboxProperties.id = body.inboxId;
             body.syncTaskBean.update.forEach((task: any) => {
               if (task.projectId == this.inboxProperties.id && task.sortOrder < this.inboxProperties.sortOrder) {
@@ -118,43 +120,43 @@ export class Tick {
           resolve(true);
         });
       } catch (e) {
-        console.error("Get Inbox Properties failed: ", e)
+        console.error('Get Inbox Properties failed: ', e);
         resolve(false);
       }
     });
   }
-  
+
   // FILTERS ===================================================================
-  
+
   async getFilters(): Promise<IFilter[]> {
     return new Promise((resolve) => {
-      const url = `${TICKTICK_API_URL}/${generalDetailsEndPoint}`;
-      
+      const url = `${this.apiUrl}/${generalDetailsEndPoint}`;
+
       this.request(url, (error: any, response: any, body: any) => {
         body = JSON.parse(body);
         resolve(body.filters);
       });
     });
   }
-  
+
   // TAGS ======================================================================
-  
+
   async getTags(): Promise<ITag[]> {
     return new Promise((resolve) => {
-      const url = `${TICKTICK_API_URL}/${allTagsEndPoint}`;
+      const url = `${this.apiUrl}/${allTagsEndPoint}`;
       this.request(url, (error: any, response: any, body: any) => {
         body = JSON.parse(body);
         resolve(body);
       });
     });
   }
-  
+
   // HABITS ====================================================================
-  
+
   async getHabits(): Promise<IHabit[]> {
     return new Promise((resolve) => {
       try {
-        const url = `${TICKTICK_API_URL}/${allHabitsEndPoint}`;
+        const url = `${this.apiUrl}/${allHabitsEndPoint}`;
         this.request(url, (error: any, response: any, body: any) => {
           const parsedBody = JSON.parse(body);
           resolve(parsedBody);
@@ -164,17 +166,17 @@ export class Tick {
       }
     });
   }
-  
+
   // PROJECTS ==================================================================
-  
+
   async getProjectGroups(): Promise<IProjectGroup[]> {
     return new Promise((resolve) => {
-      const url = `${TICKTICK_API_URL}/${generalDetailsEndPoint}`;
-      
+      const url = `${this.apiUrl}/${generalDetailsEndPoint}`;
+
       this.request(url, (error: any, response: any, body: any) => {
         if (error) {
-          console.error("Error on getProjectGroups", error);
-          resolve([])
+          console.error('Error on getProjectGroups', error);
+          resolve([]);
         } else {
           body = JSON.parse(body);
           resolve(body.projectGroups);
@@ -182,22 +184,22 @@ export class Tick {
       });
     });
   }
-  
+
   async getProjects(): Promise<IProject[]> {
     return new Promise((resolve) => {
       try {
-        const url = `${TICKTICK_API_URL}/${allProjectsEndPoint}`;
+        const url = `${this.apiUrl}/${allProjectsEndPoint}`;
         this.request(url, (error: any, response: any, body: any) => {
           if (error) {
-            console.error("Error on getProjects", error);
-            resolve([])
+            console.error('Error on getProjects', error);
+            resolve([]);
           } else {
             const parsedBody = JSON.parse(body);
             resolve(parsedBody);
           }
         });
       } catch (e) {
-        console.error("did we get a weird body: ",e)
+        console.error('did we get a weird body: ', e);
         resolve([]);
       }
     });
@@ -207,10 +209,10 @@ export class Tick {
   // async getProject(projectId: string) : Promise<ISections[]> {
   //   return new Promise((resolve) => {
   //     try {
-  //       const url = `${TICKTICK_API_URL}/${getProject}/${projectId}`;
+  //       const url = `${this.apiUrl}/${getProject}/${projectId}`;
   //       this.request(url, (error: any, response: any, body: any) => {
   //         if (body !== undefined && body!== null && body.length > 0)
-  //         {  
+  //         {
   //           const parsedBody = JSON.parse(body);
   //           resolve(parsedBody);
   //         }
@@ -221,29 +223,29 @@ export class Tick {
   //     }
   //   });
   // }
-  async getProjectSections(projectId: string) : Promise<ISections[]> { 
+  async getProjectSections(projectId: string): Promise<ISections[]> {
     return new Promise((resolve) => {
       try {
-        const url = `${TICKTICK_API_URL}/${getSections}/${projectId}`;
+        const url = `${this.apiUrl}/${getSections}/${projectId}`;
         this.request(url, (error: any, response: any, body: any) => {
           if (error) {
-            console.error("Error on getProjectSections", error);
-            resolve([])
+            console.error('Error on getProjectSections', error);
+            resolve([]);
           } else {
             const parsedBody = JSON.parse(body);
             resolve(parsedBody);
           }
         });
       } catch (e) {
-        console.error(e)
+        console.error(e);
         resolve([]);
       }
     });
   }
-  
+
   // RESOURCES =================================================================
   async getAllResources(): Promise<ITask[]> {
-    const url = `${TICKTICK_API_URL}/${allTasksEndPoint}`;
+    const url = `${this.apiUrl}/${allTasksEndPoint}`;
     const options = {
       method: 'GET',
       url: url,
@@ -251,17 +253,17 @@ export class Tick {
         Origin: 'https://ticktick.com'
       }
     };
-    
+
     return new Promise((resolve) => {
       this.request(options, function (error: any, response: any, body: any) {
         if (error) {
-          console.error("Get all resources failed: ", error)
+          console.error('Get all resources failed: ', error);
           resolve([]);
         } else {
           if (body) {
             body = JSON.parse(body);
           } else {
-            console.error("Did not get a response on get all resources.");
+            console.error('Did not get a response on get all resources.');
             resolve([]);
           }
         }
@@ -270,43 +272,42 @@ export class Tick {
       });
     });
   }
-  
-  
+
   // TASKS =====================================================================
-    
-  async getTasksStatus(): Promise<ITask[]> { 
-    const url = `${TICKTICK_API_URL}/${allTasksEndPoint}`;
+
+  async getTasksStatus(): Promise<ITask[]> {
+    const url = `${this.apiUrl}/${allTasksEndPoint}`;
     const options = {
       method: 'GET',
       url: url,
       headers: {
         Origin: 'https://ticktick.com'
       }
-    }; 
-    
+    };
+
     return new Promise((resolve) => {
       this.request(options, function (error: any, response: any, body: any) {
         if (body) {
-        body = JSON.parse(body);
-        const tasks: ITask[] = body['syncTaskBean'];
-        resolve(tasks);
+          body = JSON.parse(body);
+          const tasks: ITask[] = body['syncTaskBean'];
+          resolve(tasks);
         } else {
-          console.error("Get Task Status: No body received in response.")
+          console.error('Get Task Status: No body received in response.');
         }
       });
     });
   }
 
-  async getAllTasks(): Promise<ITask[]> { 
-    const url = `${TICKTICK_API_URL}/${allTasksEndPoint}`;
+  async getAllTasks(): Promise<ITask[]> {
+    const url = `${this.apiUrl}/${allTasksEndPoint}`;
     const options = {
       method: 'GET',
       url: url,
       headers: {
         Origin: 'https://ticktick.com'
       }
-    }; 
-    
+    };
+
     return new Promise((resolve) => {
       this.request(options, function (error: any, response: any, body: any) {
         body = JSON.parse(body);
@@ -315,42 +316,41 @@ export class Tick {
       });
     });
   }
-  
+
   async getTasks(): Promise<ITask[]> {
     return new Promise((resolve) => {
-      const url = `${TICKTICK_API_URL}/${generalDetailsEndPoint}`;
-      
+      const url = `${this.apiUrl}/${generalDetailsEndPoint}`;
+
       this.request(url, (error: any, response: any, body: any) => {
         body = JSON.parse(body);
         resolve(body.syncTaskBean.update);
       });
     });
   }
-  
+
   async getTask(taskID: string, projectID: string): Promise<ITask[]> {
     return new Promise((resolve) => {
-      const url = `${TICKTICK_API_URL}/${TaskEndPoint}/${taskID}?projectID=${projectID}`;
-      
+      const url = `${this.apiUrl}/${TaskEndPoint}/${taskID}?projectID=${projectID}`;
+
       this.request(url, (error: any, response: any, body: any) => {
         body = JSON.parse(body);
         resolve(body);
       });
     });
   }
-  
+
   async getAllCompletedItems(): Promise<ITask[]> {
     return new Promise((resolve) => {
-      const url = `${TICKTICK_API_URL}/${getAllCompletedItems}`;
-      
+      const url = `${this.apiUrl}/${getAllCompletedItems}`;
+
       this.request(url, (error: any, response: any, body: any) => {
         body = JSON.parse(body);
         resolve(body);
       });
     });
   }
-  
+
   addTask(jsonOptions: any): Promise<any> {
-    
     const thisTask: ITask = {
       id: jsonOptions.id ? jsonOptions.id : ObjectID(),
       projectId: jsonOptions.projectId ? jsonOptions.projectId : this.inboxProperties.id,
@@ -375,25 +375,25 @@ export class Tick {
       local: jsonOptions.local ? jsonOptions.local : true,
       remindTime: jsonOptions.remindTime ? jsonOptions.remindTime : null,
       tags: jsonOptions.tags ? jsonOptions.tags : [],
-      childIds: jsonOptions.childIds? jsonOptions.childIds : [],
-      parentId: jsonOptions.parentId? jsonOptions.parentId : null
+      childIds: jsonOptions.childIds ? jsonOptions.childIds : [],
+      parentId: jsonOptions.parentId ? jsonOptions.parentId : null
     };
-    
+
     let taskBody: any;
-    taskBody =  thisTask;
-    
+    taskBody = thisTask;
+
     const options = {
       method: 'POST',
-      url: `${TICKTICK_API_URL}/${TaskEndPoint}`,
+      url: `${this.apiUrl}/${TaskEndPoint}`,
       headers: {
         'Content-Type': 'application/json',
         Origin: 'https://ticktick.com',
-        "User-Agent":				"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0",
-        "X-Device":				"{\"platform\":\"web\",\"os\":\"Windows 10\",\"device\":\"Firefox 117.0\",\"name\":\"\",\"version\":4576,\"id\":\"64fc9b22cbb2c305b2df7ad6\",\"channel\":\"website\",\"campaign\":\"\",\"websocket\":\"6500a8a3bf02224e648ef8bd\"}",
-      }, 
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0',
+        'X-Device': '{"platform":"web","os":"Windows 10","device":"Firefox 117.0","name":"","version":4576,"id":"64fc9b22cbb2c305b2df7ad6","channel":"website","campaign":"","websocket":"6500a8a3bf02224e648ef8bd"}'
+      },
       json: taskBody
     };
-    
+
     return new Promise((resolve) => {
       this.request(options, (error: any, response: any, body: any) => {
         // console.log("add === ")
@@ -402,22 +402,19 @@ export class Tick {
         // console.log("\n\nbody: :",body)
         // console.log("=== add end ")
         if (error) {
-          console.error("Error on addTask", error);
-          resolve([])
+          console.error('Error on addTask', error);
+          resolve([]);
         } else {
-          let bodySortOrder
+          let bodySortOrder;
           bodySortOrder = body.sortOrder;
-          this.inboxProperties.sortOrder = bodySortOrder  - 1;
+          this.inboxProperties.sortOrder = bodySortOrder - 1;
           resolve(body);
         }
-        
-        
       });
     });
   }
-  
+
   updateTask(jsonOptions: any): Promise<any> {
-    
     const thisTask: ITask = {
       id: jsonOptions.id ? jsonOptions.id : ObjectID(),
       projectId: jsonOptions.projectId ? jsonOptions.projectId : this.inboxProperties.id,
@@ -442,35 +439,32 @@ export class Tick {
       local: jsonOptions.local ? jsonOptions.local : true,
       remindTime: jsonOptions.remindTime ? jsonOptions.remindTime : null,
       tags: jsonOptions.tags ? jsonOptions.tags : [],
-      childIds: jsonOptions.childIds? jsonOptions.childIds : [],
-      parentId: jsonOptions.parentId? jsonOptions.parentId : null
+      childIds: jsonOptions.childIds ? jsonOptions.childIds : [],
+      parentId: jsonOptions.parentId ? jsonOptions.parentId : null
     };
-    
+
     let taskBody: any;
-    taskBody  = {
+    taskBody = {
       add: [],
       addAttachments: [],
       delete: [],
       deleteAttachments: [],
       updateAttachments: [],
-      update : [thisTask],
-    }
-    
-    
-    
-    
+      update: [thisTask]
+    };
+
     const options = {
       method: 'POST',
-      url: `${TICKTICK_API_URL}/${updateTaskEndPoint}`,
+      url: `${this.apiUrl}/${updateTaskEndPoint}`,
       headers: {
         'Content-Type': 'application/json',
         Origin: 'https://ticktick.com',
-        "User-Agent":				"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0",
-        "X-Device":				"{\"platform\":\"web\",\"os\":\"Windows 10\",\"device\":\"Firefox 117.0\",\"name\":\"\",\"version\":4576,\"id\":\"64fc9b22cbb2c305b2df7ad6\",\"channel\":\"website\",\"campaign\":\"\",\"websocket\":\"6500a8a3bf02224e648ef8bd\"}",
-      }, 
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0',
+        'X-Device': '{"platform":"web","os":"Windows 10","device":"Firefox 117.0","name":"","version":4576,"id":"64fc9b22cbb2c305b2df7ad6","channel":"website","campaign":"","websocket":"6500a8a3bf02224e648ef8bd"}'
+      },
       json: taskBody
     };
-    
+
     return new Promise((resolve) => {
       this.request(options, (error: any, response: any, body: any) => {
         // console.log("add === ")
@@ -479,8 +473,8 @@ export class Tick {
         // console.log("\n\nbody: :",body)
         // console.log("=== add end ")
         if (error) {
-          console.error("Error on updateTask", error);
-          resolve([])
+          console.error('Error on updateTask', error);
+          resolve([]);
         } else {
           this.inboxProperties.sortOrder = body.sortOrder - 1;
           resolve(body);
@@ -489,36 +483,34 @@ export class Tick {
     });
   }
   deleteTask(deleteTaskId: string, deletedTaskprojectId: string): Promise<any> {
-
     if (!deleteTaskId || !deletedTaskprojectId) {
-      throw new Error("Both Task Id and Project ID are required for a delete, otherwise TickTick will fail silently.")
+      throw new Error('Both Task Id and Project ID are required for a delete, otherwise TickTick will fail silently.');
     }
-    
-    const taskToDelete = {taskId: deleteTaskId, projectId: deletedTaskprojectId}
-    
+
+    const taskToDelete = { taskId: deleteTaskId, projectId: deletedTaskprojectId };
+
     let taskBody: any;
-    taskBody  = {
+    taskBody = {
       add: [],
       addAttachments: [],
       delete: [taskToDelete],
       deleteAttachments: [],
       updateAttachments: [],
-      update : [],
-    }
-    
-        
+      update: []
+    };
+
     const options = {
       method: 'POST',
-      url: `${TICKTICK_API_URL}/${updateTaskEndPoint}`,
+      url: `${this.apiUrl}/${updateTaskEndPoint}`,
       headers: {
         'Content-Type': 'application/json',
         Origin: 'https://ticktick.com',
-        "User-Agent":				"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0",
-        "X-Device":				"{\"platform\":\"web\",\"os\":\"Windows 10\",\"device\":\"Firefox 117.0\",\"name\":\"\",\"version\":4576,\"id\":\"64fc9b22cbb2c305b2df7ad6\",\"channel\":\"website\",\"campaign\":\"\",\"websocket\":\"6500a8a3bf02224e648ef8bd\"}",
-      }, 
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0',
+        'X-Device': '{"platform":"web","os":"Windows 10","device":"Firefox 117.0","name":"","version":4576,"id":"64fc9b22cbb2c305b2df7ad6","channel":"website","campaign":"","websocket":"6500a8a3bf02224e648ef8bd"}'
+      },
       json: taskBody
     };
-    
+
     return new Promise((resolve) => {
       this.request(options, (error: any, response: any, body: any) => {
         this.inboxProperties.sortOrder = body.sortOrder - 1;
@@ -527,4 +519,3 @@ export class Tick {
     });
   }
 }
-

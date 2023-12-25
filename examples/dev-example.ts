@@ -4,19 +4,17 @@ import { ITask } from '../src/types/Task'
 dotenv.config()
 import { isValid } from '../src/utils/validate'
 
-let allAllTasks: ITask[] = null;
+let allAllTasks: ITask[] = [];
 let donePrinted: string[] = [];
 
 export async function testTick() {
   try {
-    // const envUSERNAME = process.env.TICK_USERNAME
-    // const envPASSWORD = process.env.TICK_PASSWORD
-    const envUSERNAME = "thesamim@yahoo.com"
-    const envPASSWORD = "Howdy0021!"
+    const envUSERNAME = process.env.TICK_USERNAME
+    const envPASSWORD = process.env.TICK_PASSWORD
     if (!envUSERNAME || !envPASSWORD){
       throw new Error('parameters username/password were not set in .env file.');
     }
-    
+
     const projectID = "65159d5d8f08a002fd167ce8";
     const tickSession = new Tick({ username: envUSERNAME, password: envPASSWORD });
     const hasLoggedIn = await tickSession.login();
@@ -53,7 +51,7 @@ export async function testTick() {
     //   console.log("==== items of allAllTasks")
     //   console.log(allAllTasks.map((item) => item.items))
     //   console.log("==== content of allAllTasks")
-    //   console.log(allAllTasks.map((item) => item.content)) 
+    //   console.log(allAllTasks.map((item) => item.content))
     // }else {
     //   console.log("==== No allAllTasks")
     // }
@@ -69,7 +67,7 @@ export async function testTick() {
         } else {
           return -1;
         }
-      }); 
+      });
       // allAllTasks.forEach(task => console.log(task.title))
 
 
@@ -79,7 +77,7 @@ export async function testTick() {
       // let taskWithChildren = allAllTasks.filter((currentTask) => isAChild(currentTask.parentId));
       // console.log(`No Parent tasks: \n ${oneLevelTasks.map((currentTask) => currentTask.title)}\n`)
       // console.log(`Parent tasks:\n ${taskWithChildren.map((currentTask) => currentTask.title)}\n`)
-      
+
       // allAllTasks.forEach(task => {
       //   if (task.status == 0) {
       //     // if (!(isValid(task.parentId))) {
@@ -88,8 +86,8 @@ export async function testTick() {
       //     // }
       //     if (isValid(task.childIds)) {
       //       task.childIds.forEach(child => {
-      //         console.log(`\t ${child}`) 
-      //         let childrens = allAllTasks.filter((currentTask) => currentTask.id==child)        
+      //         console.log(`\t ${child}`)
+      //         let childrens = allAllTasks.filter((currentTask) => currentTask.id==child)
       //         console.log(`====children of ${child}========`)
       //         console.log(childrens)
       //       });
@@ -99,10 +97,10 @@ export async function testTick() {
     }else {
       console.log("==== No allAllTasks")
     }
-    
+
     // const projects = await tickSession.getProjects();
     // if (projects !== undefined && projects !== null) {
-    //   console.log("==== projects") 
+    //   console.log("==== projects")
     //   // console.log(projects.map((item) => item.name));
     //   console.log(`Got ${projects.length} projects.`)
     //   projects.forEach(async project => {
@@ -127,7 +125,7 @@ export async function testTick() {
     //   // }
 
     // } else {
-    //   console.log("==== No projects") 
+    //   console.log("==== No projects")
     // }
   } catch (e: any) {
     console.log(e.message);
@@ -148,7 +146,7 @@ function isAChild(idToCheck: string) {
 
 function printTasks(allTheTasks: ITask[]) {
   console.log("=== Print Tasks ==");
-  
+
   allTheTasks.forEach(task => {
     // if (!isAChild(task.parentId)) {
     //   console.log(task.title);
@@ -159,7 +157,7 @@ function printTasks(allTheTasks: ITask[]) {
     // }
   });
 }
- 
+
 function printTaskAndChildren(task: ITask, depth: number) {
   // console.log(`printTasks+ ${task.title}, ${depth}`)
   let childCount = 0;
@@ -186,11 +184,11 @@ function printTaskAndChildren(task: ITask, depth: number) {
       } else {
         console.log(`found no child: for ${task.title}`)
       }
-      
-      
+
+
     });
     // printTaskAndChildren(---)
-    
+
   }
 }
 

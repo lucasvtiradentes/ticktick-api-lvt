@@ -3,14 +3,12 @@
 import ObjectID from 'bson-objectid';
 import request from 'request';
 
-import { IProjectGroup } from './types/ProjectGroup';
-import { IProject } from './types/Project';
-import { ISections } from './types/Project';
-import { ITag } from './types/Tag';
-import { ITask } from './types/Task';
-import { IUpdate } from './types/Task';
 import { IFilter } from './types/Filter';
 import { IHabit } from './types/Habit';
+import { IProject, ISections } from './types/Project';
+import { IProjectGroup } from './types/ProjectGroup';
+import { ITag } from './types/Tag';
+import { ITask } from './types/Task';
 
 import { API_ENDPOINTS } from './utils/get-api-endpoints';
 
@@ -52,8 +50,8 @@ export class Tick {
         method: 'POST',
         url: url,
         headers: {
-          'Content-Type': 'application/json',
           Origin: 'https://ticktick.com',
+          'Content-Type': 'application/json',
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0',
           'x-device': '{"platform":"web","os":"Windows 10","device":"Firefox 117.0","name":"","version":4576,"id":"64f9effe6edff918986b5f71","channel":"website","campaign":"","websocket":""}'
         },
@@ -223,6 +221,7 @@ export class Tick {
   //     }
   //   });
   // }
+
   async getProjectSections(projectId: string): Promise<ISections[]> {
     return new Promise((resolve) => {
       try {

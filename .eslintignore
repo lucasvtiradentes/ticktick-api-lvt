@@ -1,3 +1,9 @@
-# https://prettier.io/docs/en/options.html
+# FODLER =======================================================================
 
-utils/
+.github
+.husky
+.vscode
+dist
+node_modules
+
+# FILES ========================================================================

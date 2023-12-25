@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/lucasvtiradentes/ticktick-api-lvt/compare/v1.2.0...v1.3.0) (2023-12-25)
+
+
+### Features
+
+* support override base url ([7161885](https://github.com/lucasvtiradentes/ticktick-api-lvt/commit/7161885b2f57a9136663af1ef85b7e900b7b0a18))
+
 # [1.2.0](https://github.com/lucasvtiradentes/ticktick-api-lvt/compare/v1.1.0...v1.2.0) (2022-12-03)
 
 

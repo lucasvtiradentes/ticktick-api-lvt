@@ -25,10 +25,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "prepare": "npm run build",
     "start": "node dist/index.js",
-    "dev_example": "ts-node-dev --respawn --transpile-only ./examples/dev-example.ts",
-    "dev": "npm run dev_example",
+    "dev": "tsx ./examples/dev-example.ts",
     "build": "tsc",
     "check_package": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
     "prepub": "echo prepublish scripts && npm run build && npm run check_package",
@@ -55,7 +53,7 @@
     "husky": "^8.0.3",
     "prettier": "^3.1.1",
     "semantic-release": "^22.0.12",
-    "ts-node-dev": "^2.0.0",
+    "tsx": "^2.0.0",
     "typescript": "^5.3.3",
     "lint-staged": "^15.2.0"
   }

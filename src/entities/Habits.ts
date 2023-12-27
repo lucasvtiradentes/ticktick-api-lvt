@@ -32,7 +32,7 @@ export default class Habits extends Base {
     return new Promise((resolve) => {
       try {
         const url = `${this.configs.apiUrl}/${API_ROUTES.allHabitsEndPoint}`;
-        const options = getRequestOptions(url);
+        const options = getRequestOptions({ url, method: 'GET' });
 
         this.configs.request(options, (error, response, body) => {
           const parsedBody = JSON.parse(body);

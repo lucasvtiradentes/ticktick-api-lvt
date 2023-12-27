@@ -1,4 +1,4 @@
-import { getRequestOptions } from 'src/utils/get_request_options';
+import { getRequestOptions } from '../utils/get_request_options';
 import { API_ROUTES } from '../utils/api_routes';
 import Base from './Base';
 
@@ -6,20 +6,11 @@ export default class User extends Base {
   async login(): Promise<boolean> {
     try {
       const url = `${this.configs.apiUrl}/${API_ROUTES.login}`;
-      const options = {
-        method: 'POST',
-        url: url,
-        headers: {
-          Origin: 'https://ticktick.com',
-          'Content-Type': 'application/json',
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0',
-          'x-device': '{"platform":"web","os":"Windows 10","device":"Firefox 117.0","name":"","version":4576,"id":"64f9effe6edff918986b5f71","channel":"website","campaign":"","websocket":""}'
-        },
-        json: {
-          username: this.configs.username,
-          password: this.configs.password
-        }
+      const data = {
+        username: this.configs.username,
+        password: this.configs.password
       };
+      const options = getRequestOptions({ url, method: 'POST', payload: data });
 
       return new Promise((resolve) => {
         this.configs.request(options, async (error, request, body) => {
@@ -45,7 +36,7 @@ export default class User extends Base {
   async getUserSettings(): Promise<any[]> {
     return new Promise((resolve) => {
       const url = `${this.configs.apiUrl}/${API_ROUTES.userPreferencesEndPoint}`;
-      const options = getRequestOptions(url);
+      const options = getRequestOptions({ url, method: 'GET' });
 
       this.configs.request(options, (error, response, body) => {
         body = JSON.parse(body);
@@ -58,7 +49,7 @@ export default class User extends Base {
     return new Promise((resolve) => {
       try {
         const url = `${this.configs.apiUrl}/${API_ROUTES.generalDetailsEndPoint}`;
-        const options = getRequestOptions(url);
+        const options = getRequestOptions({ url, method: 'GET' });
 
         this.configs.request(options, (error, response, body) => {
           if (error) {

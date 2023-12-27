@@ -1,6 +1,6 @@
 import Base from './Base';
 import { API_ROUTES } from '../utils/api_routes';
-import { getRequestOptions } from 'src/utils/get_request_options';
+import { getRequestOptions } from '../utils/get_request_options';
 
 type TProjectGroup = {
   id: string;
@@ -50,7 +50,7 @@ export default class Projects extends Base {
   async getProjectGroups(): Promise<TProjectGroup[]> {
     return new Promise((resolve) => {
       const url = `${this.configs.apiUrl}/${API_ROUTES.generalDetailsEndPoint}`;
-      const options = getRequestOptions(url);
+      const options = getRequestOptions({ url, method: 'GET' });
 
       this.configs.request(options, (error, response, body) => {
         if (error) {
@@ -68,7 +68,7 @@ export default class Projects extends Base {
     return new Promise((resolve) => {
       try {
         const url = `${this.configs.apiUrl}/${API_ROUTES.allProjectsEndPoint}`;
-        const options = getRequestOptions(url);
+        const options = getRequestOptions({ url, method: 'GET' });
 
         this.configs.request(options, (error, response, body) => {
           if (error) {
@@ -90,7 +90,7 @@ export default class Projects extends Base {
     return new Promise((resolve) => {
       try {
         const url = `${this.configs.apiUrl}/${API_ROUTES.getSections}/${projectId}`;
-        const options = getRequestOptions(url);
+        const options = getRequestOptions({ url, method: 'GET' });
 
         this.configs.request(options, (error, response, body) => {
           if (error) {

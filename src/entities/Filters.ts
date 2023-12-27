@@ -1,4 +1,4 @@
-import { getRequestOptions } from 'src/utils/get_request_options';
+import { getRequestOptions } from '../utils/get_request_options';
 import { API_ROUTES } from '../utils/api_routes';
 import Base from './Base';
 
@@ -19,7 +19,7 @@ export default class Filters extends Base {
   async getFilters(): Promise<TFilter[]> {
     return new Promise((resolve) => {
       const url = `${this.configs.apiUrl}/${API_ROUTES.generalDetailsEndPoint}`;
-      const options = getRequestOptions(url);
+      const options = getRequestOptions({ url, method: 'GET' });
 
       this.configs.request(options, (error, response, body) => {
         body = JSON.parse(body);

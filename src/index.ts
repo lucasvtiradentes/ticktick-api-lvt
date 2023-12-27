@@ -32,9 +32,9 @@ export default class Ticktick {
 
     this.filters = new Filters(extendedConfigs);
     this.habits = new Habits(extendedConfigs);
-    this.tags = new Tags(extendedConfigs);
-    this.user = new User(extendedConfigs);
-    this.tasks = new Tasks(extendedConfigs);
     this.projects = new Projects(extendedConfigs);
+    this.tags = new Tags(extendedConfigs);
+    this.tasks = new Tasks(extendedConfigs);
+    this.user = new User(extendedConfigs);
   }
 }

@@ -72,7 +72,7 @@ export default class Tasks extends Base {
 
   async getAllTasks(): Promise<TTask[]> {
     const url = `${this.configs.apiUrl}/${API_ROUTES.allTasks}`;
-    const options = getRequestOptions(url);
+    const options = getRequestOptions({ url, method: 'GET' });
 
     return new Promise((resolve) => {
       this.configs.request(options, (error, response, body) => {
@@ -86,7 +86,7 @@ export default class Tasks extends Base {
   async getTasks(): Promise<TTask[]> {
     return new Promise((resolve) => {
       const url = `${this.configs.apiUrl}/${API_ROUTES.generalDetailsEndPoint}`;
-      const options = getRequestOptions(url);
+      const options = getRequestOptions({ url, method: 'GET' });
 
       this.configs.request(options, (error, response, body) => {
         body = JSON.parse(body);
@@ -98,7 +98,7 @@ export default class Tasks extends Base {
   async getTask(taskID: string, projectID: string): Promise<TTask[]> {
     return new Promise((resolve) => {
       const url = `${this.configs.apiUrl}/${API_ROUTES.TaskEndPoint}/${taskID}?projectID=${projectID}`;
-      const options = getRequestOptions(url);
+      const options = getRequestOptions({ url, method: 'GET' });
 
       this.configs.request(options, (error, response, body) => {
         body = JSON.parse(body);
@@ -110,7 +110,7 @@ export default class Tasks extends Base {
   async getAllCompletedItems(): Promise<TTask[]> {
     return new Promise((resolve) => {
       const url = `${this.configs.apiUrl}/${API_ROUTES.getAllCompletedItems}`;
-      const options = getRequestOptions(url);
+      const options = getRequestOptions({ url, method: 'GET' });
 
       this.configs.request(options, (error, response, body) => {
         body = JSON.parse(body);
@@ -151,17 +151,8 @@ export default class Tasks extends Base {
     let taskBody: any;
     taskBody = thisTask;
 
-    const options = {
-      method: 'POST',
-      url: `${this.configs.apiUrl}/${API_ROUTES.TaskEndPoint}`,
-      headers: {
-        'Content-Type': 'application/json',
-        Origin: 'https://ticktick.com',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0',
-        'X-Device': '{"platform":"web","os":"Windows 10","device":"Firefox 117.0","name":"","version":4576,"id":"64fc9b22cbb2c305b2df7ad6","channel":"website","campaign":"","websocket":"6500a8a3bf02224e648ef8bd"}'
-      },
-      json: taskBody
-    };
+    const url = `${this.configs.apiUrl}/${API_ROUTES.TaskEndPoint}`;
+    const options = getRequestOptions({ url, method: 'POST', payload: taskBody });
 
     return new Promise((resolve) => {
       this.configs.request(options, (error, response, body) => {
@@ -217,17 +208,8 @@ export default class Tasks extends Base {
       update: [thisTask]
     };
 
-    const options = {
-      method: 'POST',
-      url: `${this.configs.apiUrl}/${API_ROUTES.updateTaskEndPoint}`,
-      headers: {
-        'Content-Type': 'application/json',
-        Origin: 'https://ticktick.com',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0',
-        'X-Device': '{"platform":"web","os":"Windows 10","device":"Firefox 117.0","name":"","version":4576,"id":"64fc9b22cbb2c305b2df7ad6","channel":"website","campaign":"","websocket":"6500a8a3bf02224e648ef8bd"}'
-      },
-      json: taskBody
-    };
+    const url = `${this.configs.apiUrl}/${API_ROUTES.updateTaskEndPoint}`;
+    const options = getRequestOptions({ url, method: 'POST', payload: taskBody });
 
     return new Promise((resolve) => {
       this.configs.request(options, (error, response, body) => {
@@ -259,17 +241,8 @@ export default class Tasks extends Base {
       update: []
     };
 
-    const options = {
-      method: 'POST',
-      url: `${this.configs.apiUrl}/${API_ROUTES.updateTaskEndPoint}`,
-      headers: {
-        'Content-Type': 'application/json',
-        Origin: 'https://ticktick.com',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0',
-        'X-Device': '{"platform":"web","os":"Windows 10","device":"Firefox 117.0","name":"","version":4576,"id":"64fc9b22cbb2c305b2df7ad6","channel":"website","campaign":"","websocket":"6500a8a3bf02224e648ef8bd"}'
-      },
-      json: taskBody
-    };
+    const url = `${this.configs.apiUrl}/${API_ROUTES.updateTaskEndPoint}`;
+    const options = getRequestOptions({ url, method: 'POST', payload: taskBody });
 
     return new Promise((resolve) => {
       this.configs.request(options, (error, response, body) => {

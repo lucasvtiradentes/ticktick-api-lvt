@@ -1,3 +1,5 @@
+import { CookieJar } from 'request';
+
 type TGetRequestOptions = (
   | {
       method: 'GET';

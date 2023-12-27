@@ -60,7 +60,7 @@ export default class User extends Base {
             body = JSON.parse(body);
 
             this.configs.inboxProperties.id = body.inboxId;
-            body.syncTaskBean.update.forEach((task: any) => {
+            body.syncTaskBean?.update.forEach((task: any) => {
               if (task.projectId == this.configs.inboxProperties.id && task.sortOrder < this.configs.inboxProperties.sortOrder) {
                 this.configs.inboxProperties.sortOrder = task.sortOrder;
               }

@@ -2,6 +2,7 @@ import ObjectID from 'bson-objectid';
 import { API_ROUTES } from '../utils/api_routes';
 import Base from './Base';
 import { getRequestOptions } from '../utils/get_request_options';
+import { newZodSchema } from '../utils/validation';
 
 export type TTask = {
   id: string;
@@ -77,6 +78,10 @@ export default class Tasks extends Base {
     return new Promise((resolve) => {
       this.configs.request(options, (error, response, body) => {
         body = JSON.parse(body);
+
+        const parsed = newZodSchema.parse(body);
+        console.log(parsed);
+
         const tasks: TTask[] = body['syncTaskBean']['update'];
         resolve(tasks);
       });
@@ -90,6 +95,7 @@ export default class Tasks extends Base {
 
       this.configs.request(options, (error, response, body) => {
         body = JSON.parse(body);
+        console.log(body);
         resolve(body.syncTaskBean.update);
       });
     });

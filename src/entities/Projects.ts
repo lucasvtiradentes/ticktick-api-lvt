@@ -1,54 +1,7 @@
-import Base from './Base';
+import { TProject, TProjectGroup } from 'src/utils/validation';
 import { API_ROUTES } from '../utils/api_routes';
 import { getRequestOptions } from '../utils/get_request_options';
-import { z } from 'zod';
-
-const projectGroupSchema = z.object({
-  id: z.string(),
-  etag: z.string(),
-  name: z.string(),
-  showAll: z.boolean(),
-  sortOrder: z.number(),
-  viewMode: z.null(),
-  deleted: z.number(),
-  userId: z.number(),
-  sortType: z.string(),
-  sortOption: z.null(),
-  teamId: z.null(),
-  timeline: z.null()
-});
-
-type TProjectGroup = z.infer<typeof projectGroupSchema>;
-
-const projectSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  isOwner: z.boolean(),
-  color: z.string(),
-  inAll: z.boolean(),
-  sortOrder: z.number(),
-  sortOption: z.any(),
-  sortType: z.string(),
-  userCount: z.number(),
-  etag: z.string(),
-  modifiedTime: z.string(),
-  closed: z.null(),
-  muted: z.boolean(),
-  transferred: z.null(),
-  groupId: z.null(),
-  viewMode: z.string(),
-  notificationOptions: z.array(z.any()),
-  teamId: z.null(),
-  permission: z.null(),
-  kind: z.string(),
-  timeline: z.any(),
-  needAudit: z.boolean(),
-  openToTeam: z.null(),
-  teamMemberPermission: z.null(),
-  source: z.number()
-});
-
-type TProject = z.infer<typeof projectSchema>;
+import Base from './Base';
 
 type TSections = {
   id: number;

@@ -2,19 +2,7 @@ import { getRequestOptions } from '../utils/get_request_options';
 import { API_ROUTES } from '../utils/api_routes';
 import Base from './Base';
 import { z } from 'zod';
-
-const tagSchema = z.object({
-  name: z.string(),
-  rawName: z.string(),
-  label: z.string(),
-  sortOrder: z.number(),
-  sortType: z.string(),
-  color: z.string(),
-  etag: z.string(),
-  type: z.number()
-});
-
-type TTag = z.infer<typeof tagSchema>;
+import { TTag, tagSchema } from '../utils/validation';
 
 export default class Tags extends Base {
   async getTags(): Promise<TTag[]> {

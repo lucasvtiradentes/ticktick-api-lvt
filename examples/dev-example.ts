@@ -44,20 +44,20 @@ async function main() {
       id: '',
       projectId: ''
     };
-    console.log(await tickInstance.tasks.deleteTask(taskToDelete.id, taskToDelete.projectId));
-    console.log(await tickInstance.tasks.getAllCompletedItems());
-    console.log(await tickInstance.tasks.getAllTasks());
+    // console.log(await tickInstance.tasks.deleteTask(taskToDelete.id, taskToDelete.projectId));
+    // console.log(await tickInstance.tasks.getAllCompletedItems());
+    // console.log(await tickInstance.tasks.getAllTasks());
 
     const taskToView = {
       id: '',
       projectId: ''
     };
-    console.log(await tickInstance.tasks.getTask(taskToView.id, taskToView.projectId));
+    // console.log(await tickInstance.tasks.getTask(taskToView.id, taskToView.projectId));
     console.log(await tickInstance.tasks.getTasks());
-    console.log(await tickInstance.tasks.getTasksStatus());
+    // console.log(await tickInstance.tasks.getTasksStatus());
 
     const updatedTaskData = {};
-    console.log(await tickInstance.tasks.updateTask(updatedTaskData));
+    // console.log(await tickInstance.tasks.updateTask(updatedTaskData));
   }
 
   // USER ======================================================================
@@ -68,11 +68,11 @@ async function main() {
 
   // EXEC METHODS ==============================================================
 
-  await execFiltersMethods();
+  // await execFiltersMethods();
   // await execHabitsMethods();
   // await execProjectsMethods();
   // await execTagsMethods();
-  // await execTasksMethods();
+  await execTasksMethods();
   // await execUserMethods();
 }
 

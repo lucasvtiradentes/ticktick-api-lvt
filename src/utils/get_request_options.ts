@@ -1,4 +1,10 @@
-import { CookieJar } from 'request';
+import { RequestAPI } from 'request';
+
+export type TApiMethod = {
+  apiUrl: string;
+  request: RequestAPI<any, any, any>;
+  validateSchema: boolean;
+};
 
 type TGetRequestOptions = (
   | {

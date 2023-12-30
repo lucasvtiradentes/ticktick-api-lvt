@@ -1,5 +1,6 @@
-import { TApiMethod, getRequestOptions } from '../utils/get_request_options';
 import { z } from 'zod';
+import { TRequestConfigs } from '../../utils/configs';
+import { getRequestOptions } from '../../utils/get_request_options';
 
 const route = '/user/profile' as const;
 
@@ -32,15 +33,14 @@ const responseSchema = z.object({
 
 type TResponse = z.infer<typeof responseSchema>;
 
-async function getUserInformation({ apiUrl, request, validateSchema }: TApiMethod): Promise<TResponse> {
-  const url = `${apiUrl}/${route}`;
-  const options = getRequestOptions({ url, method: 'GET' });
+async function method(requestConfigs: TRequestConfigs): Promise<TResponse> {
+  const options = getRequestOptions(requestConfigs, { route, method: 'GET' });
 
   return new Promise((resolve) => {
-    request(options, (error, response, body) => {
+    requestConfigs.request(options, (error, response, body) => {
       const responseData = JSON.parse(body);
 
-      if (validateSchema) {
+      if (requestConfigs.validateSchema) {
         const parsedData = responseSchema.parse(responseData);
         resolve(parsedData as TResponse);
       } else {
@@ -50,4 +50,4 @@ async function getUserInformation({ apiUrl, request, validateSchema }: TApiMetho
   });
 }
 
-export { route, responseSchema, getUserInformation };
+export const apiMethod = { method, route };

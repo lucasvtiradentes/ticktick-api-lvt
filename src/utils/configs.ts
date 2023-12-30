@@ -1,20 +1,24 @@
 import { RequestAPI } from 'request';
 
-export const INITIAL_CONFIGS = {
-  origin: 'https://ticktick.com',
-  api_url: 'https://api.ticktick.com/api/v2',
-  browser_agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0'
+type TConfigs = {
+  apiUrl: string;
+  browserAgent: string;
+  validateSchema: boolean;
+  xDevice: string;
+};
+
+export const INITIAL_CONFIGS: TConfigs = {
+  apiUrl: 'https://api.ticktick.com/api/v2',
+  browserAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0',
+  xDevice: '{"platform":"web","os":"Windows 10","device":"Firefox 117.0","name":"","version":4576,"id":"64fc9b22cbb2c305b2df7ad6","channel":"website","campaign":"","websocket":"6500a8a3bf02224e648ef8bd"}',
+  validateSchema: false
 } as const;
 
 export type TTicktickConfigs = {
   username: string;
   password: string;
-  apiUrl?: string;
-  validateSchema?: boolean;
-};
+} & Partial<TConfigs>;
 
-export type TExtendedConfigs = {
+export type TRequestConfigs = {
   request: RequestAPI<any, any, any>;
-  apiUrl: string;
-  validateSchema: boolean;
-};
+} & TConfigs;

@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { TApiMethod, getRequestOptions } from '../utils/get_request_options';
+import { TRequestConfigs } from '../../utils/configs';
+import { getRequestOptions } from '../../utils/get_request_options';
 
 const route = '/projects' as const;
 
@@ -48,15 +49,14 @@ const projectSchema = z.object({
 const responseSchema = z.array(projectSchema);
 type TResponse = z.infer<typeof responseSchema>;
 
-async function getProjects({ apiUrl, request, validateSchema }: TApiMethod): Promise<TResponse> {
-  const url = `${apiUrl}/${route}`;
-  const options = getRequestOptions({ url, method: 'GET' });
+async function method(requestConfigs: TRequestConfigs): Promise<TResponse> {
+  const options = getRequestOptions(requestConfigs, { route, method: 'GET' });
 
   return new Promise((resolve) => {
-    request(options, (error, response, body) => {
+    requestConfigs.request(options, (error, response, body) => {
       const responseData = JSON.parse(body);
 
-      if (validateSchema) {
+      if (requestConfigs.validateSchema) {
         const parsedData = responseSchema.parse(responseData);
         resolve(parsedData as TResponse);
       } else {
@@ -66,4 +66,4 @@ async function getProjects({ apiUrl, request, validateSchema }: TApiMethod): Pro
   });
 }
 
-export { getProjects, responseSchema, route };
+export const apiMethod = { method, route };

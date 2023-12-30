@@ -1,55 +1,74 @@
-'use strict';
-
 import request from 'request';
-import { getProjects } from './routes/get_projects';
-import { getUserDailyReminder } from './routes/get_user_daily_reminder';
-import { getUserInformation } from './routes/get_user_information';
-import { getUserSettings } from './routes/get_user_settings';
-import { login } from './routes/login';
-import { INITIAL_CONFIGS, TExtendedConfigs, TTicktickConfigs } from './utils/configs';
-import { getRequestOptions } from './utils/get_request_options';
-
-// =============================================================================
+import { availableMethods } from './routes/available_routes';
+import { TAddTaskPayload } from './routes/tasks/add_task';
+import { TUpdateTaskPayload } from './routes/tasks/update_task';
+import { INITIAL_CONFIGS, TRequestConfigs, TTicktickConfigs } from './utils/configs';
+import { TRouteConfigs, getRequestOptions } from './utils/get_request_options';
 
 export default class Ticktick {
-  private loginData: Pick<TTicktickConfigs, 'username' | 'password'>;
-  private configs: TExtendedConfigs;
+  private authData: Pick<TTicktickConfigs, 'username' | 'password'>;
+  private requestConfigs: TRequestConfigs;
 
   constructor(configs: TTicktickConfigs) {
-    this.loginData = {
+    this.authData = {
       username: configs.username,
       password: configs.password
     };
 
-    this.configs = {
+    this.requestConfigs = {
       request: request.defaults({ jar: true }),
-      apiUrl: configs.apiUrl ?? INITIAL_CONFIGS.api_url,
-      validateSchema: configs.validateSchema ?? false
+      apiUrl: configs.apiUrl ?? INITIAL_CONFIGS.apiUrl,
+      browserAgent: configs.browserAgent ?? INITIAL_CONFIGS.browserAgent,
+      xDevice: configs.browserAgent ?? INITIAL_CONFIGS.xDevice,
+      validateSchema: configs.validateSchema ?? INITIAL_CONFIGS.validateSchema
     };
   }
 
+  // ===========================================================================
+
   auth = {
-    login: () => login({ ...this.configs, ...this.loginData })
+    login: () => availableMethods.login(this.requestConfigs, this.authData)
   };
 
   user = {
-    getUserDailyReminder: () => getUserDailyReminder(this.configs),
-    getUserSettings: () => getUserSettings(this.configs),
-    getUserInformation: () => getUserInformation(this.configs)
+    getUserDailyReminder: () => availableMethods.getUserDailyReminder(this.requestConfigs),
+    getUserSettings: () => availableMethods.getUserSettings(this.requestConfigs),
+    getUserInformation: () => availableMethods.getUserInformation(this.requestConfigs)
+  };
+
+  data = {
+    getUserDataT0: () => availableMethods.getUserDataT0(this.requestConfigs),
+    getUserDataT1: () => availableMethods.getUserDataT1(this.requestConfigs)
   };
 
   projects = {
-    getProjects: () => getProjects(this.configs)
+    getProjects: () => availableMethods.getProjects(this.requestConfigs),
+    getProjectSections: (id: string) => availableMethods.getProjectSections(this.requestConfigs, id),
+    getProjectCompletedTasks: (id: string) => availableMethods.getProjectCompletedTasks(this.requestConfigs, id)
   };
 
-  async customUrl(route: string) {
-    const url = `${this.configs.apiUrl}/${route}`;
-    const options = getRequestOptions({ url, method: 'GET' });
+  tags = {
+    getTags: () => availableMethods.getTags(this.requestConfigs)
+  };
+
+  habits = {
+    getHabits: () => availableMethods.getHabits(this.requestConfigs)
+  };
+
+  tasks = {
+    getCompletedTasks: () => availableMethods.getCompletedTasks(this.requestConfigs),
+    addTask: (payload: TAddTaskPayload) => availableMethods.addTask(this.requestConfigs, payload),
+    updateTask: (payload: TUpdateTaskPayload) => availableMethods.updateTask(this.requestConfigs, payload)
+  };
+
+  // ===========================================================================
+
+  async customUrl(routeConfigs: TRouteConfigs) {
+    const options = getRequestOptions(this.requestConfigs, routeConfigs);
 
     return new Promise((resolve) => {
-      this.configs.request(options, (error, response, body) => {
+      this.requestConfigs.request(options, (error, response, body) => {
         const responseData = JSON.parse(body);
-
         resolve(responseData);
       });
     });

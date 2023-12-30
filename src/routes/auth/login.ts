@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { TApiMethod, getRequestOptions } from '../utils/get_request_options';
+import { TRequestConfigs } from '../../utils/configs';
+import { getRequestOptions } from '../../utils/get_request_options';
 
 const route = '/user/signon?wc=true&remember=true' as const;
 
@@ -22,6 +23,7 @@ const responseSchema = z.object({
   pro: z.boolean(),
   ds: z.boolean()
 });
+
 type TResponse = z.infer<typeof responseSchema>;
 
 type TPayload = {
@@ -29,20 +31,14 @@ type TPayload = {
   password: string;
 };
 
-async function login({ apiUrl, request, validateSchema, username, password }: TApiMethod & TPayload): Promise<TResponse> {
-  const url = `${apiUrl}/${route}`;
-  const data = {
-    username: username,
-    password: password
-  };
-
-  const options = getRequestOptions({ url, method: 'POST', payload: data });
+async function method(requestConfigs: TRequestConfigs, payload: TPayload): Promise<TResponse> {
+  const options = getRequestOptions(requestConfigs, { route, method: 'POST', payload });
 
   return new Promise((resolve) => {
-    request(options, async (error, request, body) => {
+    requestConfigs.request(options, async (error, request, body) => {
       const responseData = body;
 
-      if (validateSchema) {
+      if (requestConfigs.validateSchema) {
         const parsedData = responseSchema.parse(responseData);
         resolve(parsedData as TResponse);
       } else {
@@ -52,4 +48,4 @@ async function login({ apiUrl, request, validateSchema, username, password }: TA
   });
 }
 
-export { login, responseSchema, route };
+export const apiMethod = { method, route };

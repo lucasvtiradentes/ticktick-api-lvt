@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { TRequestConfigs } from '../../configs';
-import { handlePostRequest } from '../../api_handler/requests_handler';
+import { handleRequestWithSchema } from '../../api_handler/requests_handler';
 import { parseRequestOptions } from '../../api_handler/parse_request_options';
 
 const route = '/user/signon?wc=true&remember=true' as const;
@@ -32,7 +32,7 @@ type TPayload = {
 
 async function method(requestConfigs: TRequestConfigs, payload: TPayload) {
   const requestOptions = parseRequestOptions(requestConfigs, { route, method: 'POST', payload });
-  return handlePostRequest({ requestConfigs, requestOptions, responseSchema });
+  return handleRequestWithSchema({ requestConfigs, requestOptions, responseSchema });
 }
 
 export const apiMethod = { method, route };

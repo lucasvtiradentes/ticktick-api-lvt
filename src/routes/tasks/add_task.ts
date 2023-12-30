@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { parseRequestOptions } from '../../api_handler/parse_request_options';
-import { handlePostRequest } from '../../api_handler/requests_handler';
+import { handleRequestWithSchema } from '../../api_handler/requests_handler';
 import { TRequestConfigs } from '../../configs';
 import { addTaskSchema, deleteTaskSchema, updateTaskSchema } from '../../utils/common_schemas';
 
@@ -24,7 +24,7 @@ const responseSchema = z.object({
 
 async function method(requestConfigs: TRequestConfigs, payload: TAddTaskPayload) {
   const requestOptions = parseRequestOptions(requestConfigs, { route, method: 'POST', payload });
-  return handlePostRequest({ requestConfigs, requestOptions, responseSchema });
+  return handleRequestWithSchema({ requestConfigs, requestOptions, responseSchema });
 }
 
 export const apiMethod = { method, route };

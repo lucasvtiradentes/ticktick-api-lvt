@@ -25,6 +25,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "prepare": "husky install",
     "start": "node dist/index.js",
     "dev": "tsx ./examples/dev-example.ts",
     "build": "tsc",

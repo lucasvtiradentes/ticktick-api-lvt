@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { parseRequestOptions } from '../../api_handler/parse_request_options';
-import { handleGetRequest } from '../../api_handler/requests_handler';
+import { handleRequestWithSchema } from '../../api_handler/requests_handler';
 import { TRequestConfigs } from '../../configs';
 
 const route = '/column/project/:id' as const;
@@ -20,7 +20,7 @@ const responseSchema = z.array(projectSectionSchema);
 async function method(requestConfigs: TRequestConfigs, id: string) {
   const parsedRoute = route.replace(':id', id);
   const requestOptions = parseRequestOptions(requestConfigs, { route: parsedRoute, method: 'GET' });
-  return handleGetRequest({ requestConfigs, requestOptions, responseSchema });
+  return handleRequestWithSchema({ requestConfigs, requestOptions, responseSchema });
 }
 
 export const apiMethod = { method, route };

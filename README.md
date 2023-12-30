@@ -29,20 +29,12 @@
         <ul>
           <li><a href="#development-setup">Development setup</a></li>
           <li><a href="#used-technologies">Used technologies</a></li>
-          <li><a href="#commit-messages-style">Commit messages style</a></li>
         </ul>
       </li>
       <li>
         <a href="#books-about">About</a>
         <ul>
           <li><a href="#license">License</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#family-community">Community</a>
-        <ul>
-          <li><a href="#contributing">Contributing</a></li>
-          <li><a href="#feedback">Feedback</a></li>
         </ul>
       </li>
     </ul>
@@ -53,20 +45,14 @@
 
 ## :trumpet: Overview
 
-This is a notifications microservice that implements hyped technologies, such as kafka and nestjs.
-
-The main goal of this project was to understand key concepts of kafka and nestjs.
+This is a [ticktick](ticktick.com) api wrapper developed to be used on [Node.js](https://nodejs.org/en) based projects.
 
 ## :dart: Features<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
-&nbsp;&nbsp;&nbsp;✔️ Login into ticktick;<br>
-&nbsp;&nbsp;&nbsp;✔️ Add tasks;<br>
-&nbsp;&nbsp;&nbsp;✔️ Get user tasks;<br>
-&nbsp;&nbsp;&nbsp;✔️ Get user projects;<br>
-&nbsp;&nbsp;&nbsp;✔️ Get user project groups<br>
-&nbsp;&nbsp;&nbsp;✔️ Get user tags<br>
-&nbsp;&nbsp;&nbsp;✔️ Get user filters<br>
-&nbsp;&nbsp;&nbsp;✔️ Get user habits<br>
+&nbsp;&nbsp;&nbsp;✔️ type safe api methods by using [zod](https://github.com/colinhacks/zod) validation;<br>
+&nbsp;&nbsp;&nbsp;✔️ methods for get tasks, projects, and [others](./src/routes/);<br>
+&nbsp;&nbsp;&nbsp;✔️ support to china [api version](https://api.dida365.com) [thanks to [@quanru](https://github.com/quanru)];<br>
+&nbsp;&nbsp;&nbsp;✔️ custom headers required in order to make api calls [thanks to [@thesamim](https://github.com/thesamim)].<br>
 
 ## :warning: Requirements<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
@@ -74,11 +60,6 @@ In order to use this project in your computer, you need to have the following it
 
 - [npm](https://www.npmjs.com/): To install the package. Npm is installed alongside nodejs;
 - [nodejs](https://nodejs.org/en/): To actually run the package.
-
-If you want to make changes to the source code, it is recommended to also install the following items:
-
-- [git](https://git-scm.com/): To work with version controlling;
-- [vscode](https://code.visualstudio.com/): Useful for editing the code. You can choose a similar editor as you wish.
 
 ## :bulb: Usage<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
@@ -95,46 +76,29 @@ And you can normally use it in your code as it follows:
 import { Tick } from 'ticktick-api-lvt';
 
 async function main() {
-  const USERNAME = 'username';
-  const PASSWORD = 'password';
+  const username = 'your_username';
+  const password = 'your_password';
 
-  const tickSession = new Tick({ username: USERNAME, password: PASSWORD });
-  const hasLoggedIn = await tickSession.login();
-  if (!hasLoggedIn) {
-    throw new Error('Coudnt login with this username/password.');
-  }
+  const tickInstance = new Ticktick({ username, password });
 
-  // const userPreferences = await tickSession.getUserSettings()
-  // console.log(Object.keys(userPreferences))
+  // LOGIN =====================================================================
 
-  // const allAllTasks = await tickSession.getAllTasks();
-  // console.log(allAllTasks.map((item) => item.title));
+  await tickInstance.auth.login();
 
-  // const tasks = await tickSession.getTasks();
-  // console.log(tasks.map((item) => item.title));
+  // METHODS ===================================================================
 
-  // const filters = await tickSession.getFilters();
-  // console.log(filters.map((item) => item.name));
+  console.log(await tickInstance.user.getUserInformation());
+  console.log(await tickInstance.user.getUserDailyReminder());
+  console.log(await tickInstance.user.getUserSettings());
+  console.log(await tickInstance.tags.getTags());
+  console.log(await tickInstance.tasks.getCompletedTasks());
 
-  // const projectGroups = await tickSession.getProjectGroups();
-  // console.log(projectGroups.map((item) => item.name));
-
-  // const projects = await tickSession.getProjects();
-  // console.log(projects.map((item) => item.name));
-
-  // const habits = await tickSession.getHabits();
-  // console.log(habits.map((item) => item.name));
-
-  // const tags = await tickSession.getTags();
-  // console.log(tags);
-
-  // uncomment the methods you want to see ;)
 }
 
 main();
 ```
 
-To see further examples, check out the examples folder.
+To see further usage, check out the provided [example](./examples/dev-example.ts).
 
 ## :wrench: Development<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
@@ -153,7 +117,7 @@ $ cd ticktick-api-lvt
 After download it, go to the project folder and run these commands:
 
 ```bash
-# Install dependencies
+# Install dependencies using npm
 $ npm install
 
 # Run the typescript code in development mode
@@ -219,45 +183,13 @@ This project uses the following thechnologies:
   </table>
 </div>
 
-### Commit messages style
-
-This project uses the best of two main conventions to commit messages validation:
-
-- [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/): it's powerfull messages structure;
-- [gitmoji](https://gitmoji.dev/): it's beutiful and visual way to display commits.
-
-So a typically valid commit message has this pattern:
-
-> 🔧 config: add lint-staged to the project (#2)
-
-Also, in order to have this integration working correctly, I buld a [script](../scripts/update-commits-configs.ts) that we can specify only allowed types and it take care to update both commitizen and commitlint settings.
-
 <a href="#"><img src="./.github/images/divider.png" /></a>
 
 ## :books: About<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
 ## License
 
-**Boilermanager** is distributed under the terms of the MIT License Version 2.0. A complete version of the license is available in the [LICENSE](LICENSE) file in this repository. Any contribution made to this project will be licensed under the MIT License Version 2.0.
-
-<a href="#"><img src="./.github/images/divider.png" /></a>
-
-## :family: Community<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
-
-## Contributing
-if you want to positivily impact this project, consider:
-
-- **:star: Star this repository**: my goal is to impact the maximum number of developers around the world;
-- ✍️ **Fix english mistakes** I might have made in this project, may it be in the DOCS or even in the code (I'm a portuguese natural speaker);
-- [:heart: Say thanks](https://saythanks.io/to/lucasvtiradentes): kind words have a huge impact in anyone's life;
-- [💰 Donate](https://github.com/lucasvtiradentes): if you want to support my work even more, consider make a small donation. I would be really happy!
-
-## Feedback
-
-Any questions or suggestions? You are welcome to discuss it on:
-
-- [Github issues](https://github.com/lucasvtiradentes/ticktick-api-lvt/discussions)
-- [Email](mailto:lucasvtiradentes@gmail.com)
+This project is distributed under the terms of the MIT License Version 2.0. A complete version of the license is available in the [LICENSE](LICENSE) file in this repository. Any contribution made to this project will be licensed under the MIT License Version 2.0.
 
 <a href="#"><img src="./.github/images/divider.png" /></a>
 
@@ -268,7 +200,7 @@ Any questions or suggestions? You are welcome to discuss it on:
     <a target="_blank" href="https://discord.com/users/262326726892191744"><img src="https://img.shields.io/badge/discord-5865F2?logo=discord&logoColor=white" alt="Discord"></a>
     <a target="_blank" href="https://github.com/lucasvtiradentes/"><img src="https://img.shields.io/badge/github-gray?logo=github&logoColor=white" alt="Github"></a>
   </p>
-  <p>Made with ❤️ by Lucas Vieira.</p>
+  <p>Made with ❤️ by <strong>Lucas Vieira</strong></p>
   <p>👉 See also all <a href="https://github.com/lucasvtiradentes/lucasvtiradentes/blob/master/portfolio/PROJECTS.md#TOC">my projects</a></p>
   <p>👉 See also all <a href="https://github.com/lucasvtiradentes/my-tutorials#readme">my articles</a></p>
 </div>

@@ -3,10 +3,16 @@ import Ticktick from '../src/index';
 dotenv.config();
 
 async function main() {
-  const envUSERNAME = process.env.TICK_USERNAME ?? 'your_username';
-  const envPASSWORD = process.env.TICK_PASSWORD ?? 'your_password';
+  const username = process.env.TICK_USERNAME ?? 'your_username';
+  const password = process.env.TICK_PASSWORD ?? 'your_password';
 
-  const tickInstance = new Ticktick({ username: envUSERNAME, password: envPASSWORD });
+  const tickInstance = new Ticktick({ username, password });
+
+  // const chinaTickInstance = new Ticktick({ username, password, customConfigs: { apiUrl: 'https://api.dida365.com/api/v2' } });
+
+  // const developTickInstance = new Ticktick({ username, password, customConfigs: { validateSchema: true } });
+  // [validateSchema: true] will throw an error on response in case its content dont follow the specified schema, if is that the case
+  // and you want to contribute to the project please update the schema and send a pull request with it.
 
   // AUTH ======================================================================
 
@@ -33,10 +39,11 @@ async function main() {
 
   // PROJECTS ==================================================================
 
-  const projectId = '6469009e8f08f0358a6b82d7';
   console.log(await tickInstance.projects.getProjects());
-  console.log(await tickInstance.projects.getProjectSections(projectId));
-  console.log(await tickInstance.projects.getProjectCompletedTasks(projectId));
+
+  // const projectId = '6469009e8f08f0358a6b82d7';
+  // console.log(await tickInstance.projects.getProjectSections(projectId));
+  // console.log(await tickInstance.projects.getProjectCompletedTasks(projectId));
 
   // TASKS =====================================================================
 
@@ -44,8 +51,8 @@ async function main() {
 
   // TESTING ===================================================================
 
-  // console.log(await tickInstance.customUrl({ url: '/batch/check/0', method: 'GET' }));
-  // console.log(await tickInstance.customUrl({ url: '/batch/check/1', method: 'GET' }));
+  // console.log(await tickInstance.customUrl({ route: '/batch/check/0', method: 'GET' }));
+  // console.log(await tickInstance.customUrl({ route: '/batch/check/1', method: 'GET' }));
 }
 
 main();

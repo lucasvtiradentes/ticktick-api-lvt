@@ -1,4 +1,4 @@
-import { TRequestConfigs } from './configs';
+import { TRequestConfigs } from '../configs';
 
 export type TRouteConfigs = (
   | {
@@ -12,7 +12,7 @@ export type TRouteConfigs = (
   route: string;
 };
 
-export const getRequestOptions = (requestConfigs: TRequestConfigs, routeConfigs: TRouteConfigs) => ({
+export const parseRequestOptions = (requestConfigs: TRequestConfigs, routeConfigs: TRouteConfigs) => ({
   method: routeConfigs.method,
   url: `${requestConfigs.apiUrl}${routeConfigs.route}`,
   headers: {

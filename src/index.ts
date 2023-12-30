@@ -1,12 +1,12 @@
 import request from 'request';
+import { INITIAL_CONFIGS, TAuthData, TRequestConfigs, TTicktickConfigs } from './configs';
 import { availableMethods } from './routes/available_routes';
 import { TAddTaskPayload } from './routes/tasks/add_task';
 import { TUpdateTaskPayload } from './routes/tasks/update_task';
-import { INITIAL_CONFIGS, TRequestConfigs, TTicktickConfigs } from './utils/configs';
-import { TRouteConfigs, getRequestOptions } from './utils/get_request_options';
+import { TRouteConfigs, parseRequestOptions } from './api_handler/parse_request_options';
 
 export default class Ticktick {
-  private authData: Pick<TTicktickConfigs, 'username' | 'password'>;
+  private authData: TAuthData;
   private requestConfigs: TRequestConfigs;
 
   constructor(configs: TTicktickConfigs) {
@@ -17,10 +17,8 @@ export default class Ticktick {
 
     this.requestConfigs = {
       request: request.defaults({ jar: true }),
-      apiUrl: configs.apiUrl ?? INITIAL_CONFIGS.apiUrl,
-      browserAgent: configs.browserAgent ?? INITIAL_CONFIGS.browserAgent,
-      xDevice: configs.browserAgent ?? INITIAL_CONFIGS.xDevice,
-      validateSchema: configs.validateSchema ?? INITIAL_CONFIGS.validateSchema
+      ...INITIAL_CONFIGS,
+      ...configs?.customConfigs
     };
   }
 
@@ -64,7 +62,7 @@ export default class Ticktick {
   // ===========================================================================
 
   async customUrl(routeConfigs: TRouteConfigs) {
-    const options = getRequestOptions(this.requestConfigs, routeConfigs);
+    const options = parseRequestOptions(this.requestConfigs, routeConfigs);
 
     return new Promise((resolve) => {
       this.requestConfigs.request(options, (error, response, body) => {

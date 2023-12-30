@@ -1,6 +1,7 @@
 import { z } from 'zod';
-import { TRequestConfigs } from '../../utils/configs';
-import { getRequestOptions } from '../../utils/get_request_options';
+import { parseRequestOptions } from '../../api_handler/parse_request_options';
+import { handleGetRequest } from '../../api_handler/requests_handler';
+import { TRequestConfigs } from '../../configs';
 
 const route = '/column/project/:id' as const;
 
@@ -15,24 +16,11 @@ const projectSectionSchema = z.object({
 });
 
 const responseSchema = z.array(projectSectionSchema);
-type TResponse = z.infer<typeof responseSchema>;
 
-async function method(requestConfigs: TRequestConfigs, id: string): Promise<TResponse> {
+async function method(requestConfigs: TRequestConfigs, id: string) {
   const parsedRoute = route.replace(':id', id);
-  const options = getRequestOptions(requestConfigs, { route: parsedRoute, method: 'GET' });
-
-  return new Promise((resolve) => {
-    requestConfigs.request(options, (error, response, body) => {
-      const responseData = JSON.parse(body);
-
-      if (requestConfigs.validateSchema) {
-        const parsedData = responseSchema.parse(responseData);
-        resolve(parsedData as TResponse);
-      } else {
-        resolve(responseData as TResponse);
-      }
-    });
-  });
+  const requestOptions = parseRequestOptions(requestConfigs, { route: parsedRoute, method: 'GET' });
+  return handleGetRequest({ requestConfigs, requestOptions, responseSchema });
 }
 
 export const apiMethod = { method, route };

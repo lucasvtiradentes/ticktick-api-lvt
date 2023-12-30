@@ -1,6 +1,8 @@
 import { tagSchema } from '../routes/tags/get_tags';
 import { z } from 'zod';
 
+// =============================================================================
+
 export const completedTaskSchema = z.object({
   id: z.string(),
   projectId: z.string(),

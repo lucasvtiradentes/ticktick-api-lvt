@@ -1,6 +1,7 @@
 # FOLDERS ###############################
 
 dist/
+ignore/
 node_modules/
 package/
 

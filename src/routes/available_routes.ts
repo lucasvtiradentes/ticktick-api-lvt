@@ -6,8 +6,8 @@ import { apiMethod as getProjectCompletedTasks } from './projects/get_project_co
 import { apiMethod as getProjectSections } from './projects/get_project_sections';
 import { apiMethod as getProjects } from './projects/get_projects';
 import { apiMethod as getTags } from './tags/get_tags';
-import { apiMethod as getCompletedTasks } from './tasks/get_completed_tasks';
 import { apiMethod as addTask } from './tasks/add_task';
+import { apiMethod as getCompletedTasks } from './tasks/get_completed_tasks';
 import { apiMethod as updateTask } from './tasks/update_task';
 import { apiMethod as getUserDailyReminder } from './user/get_user_daily_reminder';
 import { apiMethod as getUserInformation } from './user/get_user_information';

@@ -1,6 +1,7 @@
 import { z } from 'zod';
-import { TRequestConfigs } from '../../utils/configs';
-import { getRequestOptions } from '../../utils/get_request_options';
+import { TRequestConfigs } from '../../configs';
+import { handlePostRequest } from '../../api_handler/requests_handler';
+import { parseRequestOptions } from '../../api_handler/parse_request_options';
 
 const route = '/user/signon?wc=true&remember=true' as const;
 
@@ -24,28 +25,14 @@ const responseSchema = z.object({
   ds: z.boolean()
 });
 
-type TResponse = z.infer<typeof responseSchema>;
-
 type TPayload = {
   username: string;
   password: string;
 };
 
-async function method(requestConfigs: TRequestConfigs, payload: TPayload): Promise<TResponse> {
-  const options = getRequestOptions(requestConfigs, { route, method: 'POST', payload });
-
-  return new Promise((resolve) => {
-    requestConfigs.request(options, async (error, request, body) => {
-      const responseData = body;
-
-      if (requestConfigs.validateSchema) {
-        const parsedData = responseSchema.parse(responseData);
-        resolve(parsedData as TResponse);
-      } else {
-        resolve(responseData as TResponse);
-      }
-    });
-  });
+async function method(requestConfigs: TRequestConfigs, payload: TPayload) {
+  const requestOptions = parseRequestOptions(requestConfigs, { route, method: 'POST', payload });
+  return handlePostRequest({ requestConfigs, requestOptions, responseSchema });
 }
 
 export const apiMethod = { method, route };

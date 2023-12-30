@@ -34,7 +34,6 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "bson-objectid": "^2.0.4",
     "request": "^2.88.2",
     "zod": "^3.22.4"
   },

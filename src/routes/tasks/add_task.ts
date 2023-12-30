@@ -1,7 +1,8 @@
 import { z } from 'zod';
+import { parseRequestOptions } from '../../api_handler/parse_request_options';
+import { handlePostRequest } from '../../api_handler/requests_handler';
+import { TRequestConfigs } from '../../configs';
 import { addTaskSchema, deleteTaskSchema, updateTaskSchema } from '../../utils/common_schemas';
-import { TRequestConfigs } from '../../utils/configs';
-import { getRequestOptions } from '../../utils/get_request_options';
 
 const route = '/batch/task' as const;
 
@@ -21,21 +22,9 @@ const responseSchema = z.object({
   id2error: z.any()
 });
 
-type TResponse = z.infer<typeof responseSchema>;
-
-async function method(requestConfigs: TRequestConfigs, payload: TAddTaskPayload): Promise<TResponse> {
-  const options = getRequestOptions(requestConfigs, { route, method: 'POST', payload });
-
-  return new Promise((resolve) => {
-    requestConfigs.request(options, (error, response, body) => {
-      if (requestConfigs.validateSchema) {
-        const parsedData = responseSchema.parse(body);
-        resolve(parsedData as TResponse);
-      } else {
-        resolve(body as TResponse);
-      }
-    });
-  });
+async function method(requestConfigs: TRequestConfigs, payload: TAddTaskPayload) {
+  const requestOptions = parseRequestOptions(requestConfigs, { route, method: 'POST', payload });
+  return handlePostRequest({ requestConfigs, requestOptions, responseSchema });
 }
 
 export const apiMethod = { method, route };

@@ -1,19 +1,16 @@
 # FOLDERS ###############################
+
 /.github
 /.husky
+./vscode
+
 /examples
 /node_modules
-/offline
 /src
-/tests
-/package
 
 # FILES #################################
-*.tgz
-package-lock.json
-yarn-lock.json
-pnpm-lock.yaml
 
+.lintstagedrc.json
 .commitlintrc
 .czrc
 .editorconfig
@@ -26,6 +23,8 @@ pnpm-lock.yaml
 .prettierignore
 .prettierrc
 .releaserc
-LICENSE
-CHANGELOG.md
 tsconfig.json
+
+package-lock.json
+yarn-lock.json
+pnpm-lock.yaml

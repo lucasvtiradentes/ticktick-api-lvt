@@ -1,6 +1,6 @@
 {
   "name": "ticktick-api-lvt",
-  "version": "0.1.0-development",
+  "version": "0.0.0-development",
   "description": "📅 a ticktick api wrapper package to be used in node based projects.",
   "license": "MIT",
   "author": {
@@ -25,10 +25,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "prepare": "npm run build",
+    "prepare": "husky install",
     "start": "node dist/index.js",
-    "dev_example": "ts-node-dev --respawn --transpile-only ./examples/dev-example.ts",
-    "dev": "npm run dev_example",
+    "dev": "tsx ./examples/dev-example.ts",
     "build": "tsc",
     "check_package": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
     "prepub": "echo prepublish scripts && npm run build && npm run check_package",
@@ -36,26 +35,28 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "bson-objectid": "^2.0.4",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.3.0",
-    "@commitlint/config-conventional": "^17.3.0",
-    "@semantic-release/changelog": "^6.0.2",
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
+    "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/dotenv": "^8.2.0",
-    "@types/node": "^18.11.9",
-    "@types/request": "^2.48.8",
-    "@typescript-eslint/eslint-plugin": "^5.45.0",
-    "@typescript-eslint/parser": "^5.45.0",
-    "dotenv": "^16.0.3",
-    "eslint": "^8.28.0",
-    "eslint-config-prettier": "^8.5.0",
-    "husky": "^8.0.2",
-    "prettier": "^2.8.0",
-    "semantic-release": "^19.0.5",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^4.9.3"
+    "@types/node": "^20.10.6",
+    "@types/request": "^2.48.12",
+    "@typescript-eslint/eslint-plugin": "^6.16.0",
+    "@typescript-eslint/parser": "^6.16.0",
+    "dotenv": "^16.3.1",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.1",
+    "semantic-release": "^22.0.12",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
   }
 }

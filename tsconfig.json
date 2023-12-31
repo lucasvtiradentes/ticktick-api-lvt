@@ -1,21 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2016",
     "module": "commonjs",
     "outDir": "./dist",
     "strict": true,
-    "esModuleInterop": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
-    "resolveJsonModule": true,
-    "allowJs": true,
-    "alwaysStrict": true,
-    "declaration": true
+    "declaration": true,
+    "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
+  "include": ["src", "examples"]
 }

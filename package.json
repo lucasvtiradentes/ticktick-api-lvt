@@ -1,6 +1,6 @@
 {
   "name": "ticktick-api-lvt",
-  "version": "0.1.0-development",
+  "version": "0.0.0-development",
   "description": "📅 a ticktick api wrapper package to be used in node based projects.",
   "license": "MIT",
   "author": {
@@ -44,7 +44,7 @@
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/dotenv": "^8.2.0",
-    "@types/node": "^20.10.5",
+    "@types/node": "^20.10.6",
     "@types/request": "^2.48.12",
     "@typescript-eslint/eslint-plugin": "^6.16.0",
     "@typescript-eslint/parser": "^6.16.0",
@@ -56,7 +56,7 @@
     "lint-staged": "^15.2.0",
     "prettier": "^3.1.1",
     "semantic-release": "^22.0.12",
-    "tsx": "^2.0.0",
+    "tsx": "^4.7.0",
     "typescript": "^5.3.3"
   }
 }

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { TRequestConfigs } from '../../configs';
-import { handleRequestWithSchema } from '../../api_handler/requests_handler';
+import { handleRequestWithSchema, TApiMethod } from '../../api_handler/requests_handler';
 import { parseRequestOptions } from '../../api_handler/parse_request_options';
 
 const route = '/user/signon?wc=true&remember=true' as const;
@@ -35,4 +35,4 @@ async function method(requestConfigs: TRequestConfigs, payload: TPayload) {
   return handleRequestWithSchema({ requestConfigs, requestOptions, responseSchema });
 }
 
-export const apiMethod = { method, route };
+export const apiMethod = { method, route } satisfies TApiMethod;

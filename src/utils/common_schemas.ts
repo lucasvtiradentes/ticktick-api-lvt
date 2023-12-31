@@ -13,7 +13,7 @@ export const completedTaskSchema = z.object({
   dueDate: z.string(),
   timeZone: z.string(),
   isFloating: z.boolean(),
-  isAllDay: z.boolean(),
+  isAllDay: z.boolean().optional(),
   reminders: z.array(z.any()),
   exDate: z.array(z.any()),
   completedTime: z.string(),
@@ -28,7 +28,7 @@ export const completedTaskSchema = z.object({
   createdTime: z.string(),
   creator: z.number(),
   columnId: z.string().optional(),
-  kind: z.string()
+  kind: z.string().nullable()
 });
 
 // =============================================================================
@@ -43,11 +43,11 @@ const commomAddUpdateTaskSchema = z.object({
   projectId: z.string(),
   sortOrder: z.number(),
   title: z.string(),
-  content: z.string(),
+  content: z.string().optional(),
   desc: z.string().optional(),
   timeZone: z.string(),
   isFloating: z.boolean(),
-  isAllDay: z.boolean(),
+  isAllDay: z.boolean().optional(),
   reminder: z.string().optional(),
   reminders: z.array(taskReminderSchema),
   repeatFirstDate: z.string().optional(),
@@ -58,10 +58,10 @@ const commomAddUpdateTaskSchema = z.object({
   priority: z.number(),
   status: z.number(),
   items: z.array(z.any()),
-  progress: z.number(),
+  progress: z.number().optional(),
   modifiedTime: z.string(),
   createdTime: z.string(),
-  kind: z.null(),
+  kind: z.string().nullable(),
   columnId: z.string().optional()
 });
 
@@ -126,7 +126,7 @@ const projectSchema = z.object({
   notificationOptions: z.array(z.any()).nullable(),
   teamId: z.null(),
   permission: z.null(),
-  kind: z.string(),
+  kind: z.string().nullable(),
   timeline: z.any(),
   needAudit: z.boolean(),
   openToTeam: z.boolean().nullable(),

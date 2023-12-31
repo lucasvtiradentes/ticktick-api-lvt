@@ -5,11 +5,8 @@
 </h3>
 
 <div align="center">
-  <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/made%20with-node-1f425f?logo=node.js&.svg" /></a>
-  <a href="https://www.github.com/lucasvtiradentes/ticktick-api-lvt/commits/master"><img src="https://img.shields.io/github/last-commit/lucasvtiradentes/ticktick-api-lvt?color=green&label=updated"></a>
-  <br>
-  <a href="#"><img src="https://img.shields.io/badge/maintained%3F-yes-green.svg" alt="maintance" /></a>
-  <a href="https://www.github.com/lucasvtiradentes"><img src="https://img.shields.io/badge/maintainer-%40lucasvtiradentes-yellow"></a>
+  <a href="https://www.npmjs.com/package/ticktick-api-lvt"><img src="https://img.shields.io/npm/v/ticktick-api-lvt.svg?style=flat" alt="npm version"></a>
+  <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/made%20with-node-1f425f?logo=node.js&.svg" /></a>
   <a href="https://github.com/lucasvtiradentes/ticktick-api-lvt#contributing"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat" alt="contributions" /></a>
 </div>
 
@@ -50,7 +47,7 @@ This is a [ticktick](ticktick.com) api wrapper developed to be used on [Node.js]
 ## :dart: Features<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
 &nbsp;&nbsp;&nbsp;✔️ type safe api methods by using [zod](https://github.com/colinhacks/zod) validation;<br>
-&nbsp;&nbsp;&nbsp;✔️ methods for get tasks, projects, and [others](./src/routes/);<br>
+&nbsp;&nbsp;&nbsp;✔️ methods for common actions, find more [here](./src/routes/);<br>
 &nbsp;&nbsp;&nbsp;✔️ support to china [api version](https://api.dida365.com) [thanks to [@quanru](https://github.com/quanru)];<br>
 &nbsp;&nbsp;&nbsp;✔️ custom headers required in order to make api calls [thanks to [@thesamim](https://github.com/thesamim)].<br>
 

@@ -2,7 +2,7 @@ import request from 'request';
 import { TRouteConfigs, parseRequestOptions } from './api_handler/parse_request_options';
 import { handleRequest } from './api_handler/requests_handler';
 import { INITIAL_CONFIGS, TAuthData, TRequestConfigs, TTicktickConfigs } from './configs';
-import { availableMethods } from './routes/available_routes';
+import { TAvailableRoutes, availableMethods } from './routes/available_routes';
 import { TAddTaskPayload } from './routes/tasks/add_task';
 import { TUpdateTaskPayload } from './routes/tasks/update_task';
 
@@ -30,9 +30,9 @@ export default class Ticktick {
   };
 
   user = {
+    getUserInformation: () => availableMethods.getUserInformation(this.#requestConfigs),
     getUserDailyReminder: () => availableMethods.getUserDailyReminder(this.#requestConfigs),
-    getUserSettings: () => availableMethods.getUserSettings(this.#requestConfigs),
-    getUserInformation: () => availableMethods.getUserInformation(this.#requestConfigs)
+    getUserSettings: () => availableMethods.getUserSettings(this.#requestConfigs)
   };
 
   data = {
@@ -42,8 +42,7 @@ export default class Ticktick {
 
   projects = {
     getProjects: () => availableMethods.getProjects(this.#requestConfigs),
-    getProjectSections: (id: string) => availableMethods.getProjectSections(this.#requestConfigs, id),
-    getProjectCompletedTasks: (id: string) => availableMethods.getProjectCompletedTasks(this.#requestConfigs, id)
+    getProjectSections: (id: string) => availableMethods.getProjectSections(this.#requestConfigs, id)
   };
 
   tags = {
@@ -55,14 +54,15 @@ export default class Ticktick {
   };
 
   tasks = {
-    getCompletedTasks: () => availableMethods.getCompletedTasks(this.#requestConfigs),
     addTask: (payload: TAddTaskPayload) => availableMethods.addTask(this.#requestConfigs, payload),
-    updateTask: (payload: TUpdateTaskPayload) => availableMethods.updateTask(this.#requestConfigs, payload)
+    updateTask: (payload: TUpdateTaskPayload) => availableMethods.updateTask(this.#requestConfigs, payload),
+    getProjectCompletedTasks: (id: string) => availableMethods.getProjectCompletedTasks(this.#requestConfigs, id),
+    getCompletedTasks: () => availableMethods.getCompletedTasks(this.#requestConfigs)
   };
 
   // ===========================================================================
 
-  async customUrl(routeConfigs: TRouteConfigs) {
+  async customUrl(routeConfigs: TRouteConfigs & { route: TAvailableRoutes }) {
     const requestOptions = parseRequestOptions(this.#requestConfigs, routeConfigs);
     return handleRequest({ requestConfigs: this.#requestConfigs, requestOptions });
   }

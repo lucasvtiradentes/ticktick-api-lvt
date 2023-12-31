@@ -1,18 +1,16 @@
 import { TRequestConfigs } from '../configs';
 
-export type TRouteConfigs = (
+export type TRouteConfigs =
   | {
       method: 'GET';
     }
   | {
       method: 'POST';
       payload: unknown;
-    }
-) & {
-  route: string;
-};
+    };
 
-export const parseRequestOptions = (requestConfigs: TRequestConfigs, routeConfigs: TRouteConfigs) => ({
+// prettier-ignore
+export const parseRequestOptions = (requestConfigs: TRequestConfigs, routeConfigs: TRouteConfigs & { route: string; }) => ({
   method: routeConfigs.method,
   url: `${requestConfigs.apiUrl}${routeConfigs.route}`,
   headers: {

@@ -4,6 +4,11 @@ import { TRequestConfigs } from '../configs';
 import { GenericError } from '../errors/GenericError';
 import { TicktickError, ticktickResponseErrorSchema } from '../errors/TicktickError';
 
+export type TApiMethod = {
+  route: string;
+  method: (...args: any[]) => Promise<any>;
+};
+
 type THandleRequestProps = {
   requestOptions: CoreOptions;
   requestConfigs: TRequestConfigs;

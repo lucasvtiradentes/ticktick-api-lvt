@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { parseRequestOptions } from '../../api_handler/parse_request_options';
-import { handleRequestWithSchema } from '../../api_handler/requests_handler';
+import { TApiMethod, handleRequestWithSchema } from '../../api_handler/requests_handler';
 import { TRequestConfigs } from '../../configs';
 import { completedTaskSchema } from '../../utils/common_schemas';
 
@@ -13,4 +13,4 @@ async function method(requestConfigs: TRequestConfigs) {
   return handleRequestWithSchema({ requestConfigs, requestOptions, responseSchema });
 }
 
-export const apiMethod = { method, route };
+export const apiMethod = { method, route } satisfies TApiMethod;

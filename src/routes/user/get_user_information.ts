@@ -1,34 +1,34 @@
 import { z } from 'zod';
 import { parseRequestOptions } from '../../api_handler/parse_request_options';
-import { handleRequestWithSchema } from '../../api_handler/requests_handler';
+import { TApiMethod, handleRequestWithSchema } from '../../api_handler/requests_handler';
 import { TRequestConfigs } from '../../configs';
 
 const route = '/user/profile' as const;
 
 const responseSchema = z.object({
-  etimestamp: z.null(),
+  etimestamp: z.string().nullable(),
   username: z.string(),
   siteDomain: z.string(),
-  createdCampaign: z.null(),
-  createdDeviceInfo: z.null(),
+  createdCampaign: z.string().nullable(),
+  createdDeviceInfo: z.string().nullable(),
   filledPassword: z.boolean(),
-  accountDomain: z.null(),
-  extenalId: z.null(),
-  email: z.null(),
+  accountDomain: z.string().nullable(),
+  extenalId: z.string().nullable(),
+  email: z.string().nullable(),
   verifiedEmail: z.boolean(),
   fakedEmail: z.boolean(),
-  phone: z.null(),
+  phone: z.string().nullable(),
   name: z.string(),
-  givenName: z.null(),
-  familyName: z.null(),
-  link: z.null(),
+  givenName: z.string().nullable(),
+  familyName: z.string().nullable(),
+  link: z.string().nullable(),
   picture: z.string(),
-  gender: z.null(),
+  gender: z.string().nullable(),
   locale: z.string(),
   userCode: z.string(),
-  verCode: z.null(),
-  verKey: z.null(),
-  externalId: z.null(),
+  verCode: z.string().nullable(),
+  verKey: z.string().nullable(),
+  externalId: z.string().nullable(),
   displayName: z.string()
 });
 
@@ -37,4 +37,4 @@ async function method(requestConfigs: TRequestConfigs) {
   return handleRequestWithSchema({ requestConfigs, requestOptions, responseSchema });
 }
 
-export const apiMethod = { method, route };
+export const apiMethod = { method, route } satisfies TApiMethod;

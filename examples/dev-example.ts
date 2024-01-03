@@ -9,7 +9,7 @@ async function main() {
   // const basicTickInstance = new Ticktick({ username, password });
   // const chinaTickInstance = new Ticktick({ username, password, customConfigs: { apiUrl: 'https://api.dida365.com/api/v2' } });
 
-  const tickInstance = new Ticktick({ username, password, customConfigs: { validateSchema: true } });
+  const tickInstance = new Ticktick({ username, password }); // , customConfigs: { validateSchema: true }
 
   // [validateSchema: true] will throw an error on response in case its content dont follow the specified schema, if is that the case
   // and you want to contribute to the project please update the schema and send a pull request with it.

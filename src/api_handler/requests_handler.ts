@@ -23,6 +23,8 @@ async function handlePostRequest<TZodSchema extends ZodTypeAny>({ requestOptions
     requestConfigs.request(requestOptions, async (error, response) => {
       const responseData = response.body;
 
+      console.log(response.body);
+
       if (error) {
         reject(new GenericError(error));
       }
@@ -45,6 +47,8 @@ async function handlePostRequest<TZodSchema extends ZodTypeAny>({ requestOptions
 async function handleGetRequest<TZodSchema extends ZodTypeAny>({ requestOptions, responseSchema, requestConfigs }: THandleRequestWithSchemaProps<TZodSchema>): Promise<z.infer<TZodSchema>> {
   return new Promise((resolve, reject) => {
     requestConfigs.request(requestOptions, (error, response) => {
+      console.log(response.body);
+
       const responseData = JSON.parse(response.body);
 
       if (error) {

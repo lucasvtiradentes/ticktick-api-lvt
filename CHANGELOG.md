@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/lucasvtiradentes/ticktick-api-lvt/compare/v1.4.1...v1.4.2) (2024-01-09)
+
+
+### Bug Fixes
+
+* request default import error ([c115cde](https://github.com/lucasvtiradentes/ticktick-api-lvt/commit/c115cdedac4b7a2bfeac98d4d54abf4b96447201))
+
 ## [1.4.1](https://github.com/lucasvtiradentes/ticktick-api-lvt/compare/v1.4.0...v1.4.1) (2024-01-09)
 
 

@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/lucasvtiradentes/ticktick-api-lvt/compare/v1.4.0...v1.4.1) (2024-01-09)
+
+
+### Bug Fixes
+
+* wrong main file path after build ([371226a](https://github.com/lucasvtiradentes/ticktick-api-lvt/commit/371226a971810048a497889b4d5699cd277e4a6a))
+
 # [1.4.0](https://github.com/lucasvtiradentes/ticktick-api-lvt/compare/v1.3.0...v1.4.0) (2023-12-31)
 
 

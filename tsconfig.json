@@ -8,5 +8,5 @@
     "declaration": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src", "examples"]
+  "include": ["src"]
 }

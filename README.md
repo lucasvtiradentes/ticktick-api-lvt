@@ -44,6 +44,8 @@
 
 This is a [ticktick](ticktick.com) api wrapper developed to be used on [Node.js](https://nodejs.org/en) based projects.
 
+> :warning: **warning**: As of Jan 2024 Ticktick requires a captcha token in order to authenticate user on login. I'm working in order to implement it on this package, but have not yet succeeded. More details on [this issue](https://github.com/lucasvtiradentes/ticktick-api-lvt/issues/13).
+
 ## :dart: Features<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
 &nbsp;&nbsp;&nbsp;✔️ type safe api methods by using [zod](https://github.com/colinhacks/zod) validation;<br>
@@ -148,7 +150,6 @@ This project uses the following thechnologies:
       <td align="center">
         <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-339933?logo=nodedotjs&logoColor=white"></a>
         <a target="_blank" href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/typescript-%23007ACC.svg?logo=typescript&logoColor=white"></a>
-        <a target="_blank" href="https://reactjs.org/"><img src="https://img.shields.io/badge/react-%2320232a.svg?logo=react&logoColor=%2361DAFB"></a>
       </td>
     </tr>
     <tr>

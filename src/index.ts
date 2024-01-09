@@ -1,4 +1,4 @@
-import request from 'request';
+import * as request from 'request';
 import { TRouteConfigs, parseRequestOptions } from './api_handler/parse_request_options';
 import { handleRequest } from './api_handler/requests_handler';
 import { INITIAL_CONFIGS, TAuthData, TRequestConfigs, TTicktickConfigs } from './configs';

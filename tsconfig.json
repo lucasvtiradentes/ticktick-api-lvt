@@ -6,7 +6,7 @@
     "strict": true,
     "skipLibCheck": true,
     "declaration": true,
-    "allowSyntheticDefaultImports": true
+    "esModuleInterop": true
   },
   "include": ["src"]
 }

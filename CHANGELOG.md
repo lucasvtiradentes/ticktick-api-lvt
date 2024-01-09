@@ -1,3 +1,10 @@
+## [1.4.3](https://github.com/lucasvtiradentes/ticktick-api-lvt/compare/v1.4.2...v1.4.3) (2024-01-09)
+
+
+### Bug Fixes
+
+* request build error due to tsconfigs ([c13546d](https://github.com/lucasvtiradentes/ticktick-api-lvt/commit/c13546deeb34231a8ed347deb1ecbca9c9dad68f))
+
 ## [1.4.2](https://github.com/lucasvtiradentes/ticktick-api-lvt/compare/v1.4.1...v1.4.2) (2024-01-09)
 
 
